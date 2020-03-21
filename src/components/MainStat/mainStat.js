@@ -1,33 +1,31 @@
 import React from "react"
 import { Container, Col, Row } from "reactstrap"
-import Image from '../image';
+import Image from "../image"
 // warya Think about the box model
 
 const MainStat = () => {
   return (
-    <Container className="card">
-      <Row>
+    <Container className="card" style={{ padding: "2rem" }}>
+      <Row style={{ justifyContent: "space-between" }}>
+        <Col xl={5} syle={{ maxWidth: "300px" }}>
+          <Image />
+        </Col>
+
         <Col xl={6}>
-            <Row>
-            <Col xs="4" >
-            {" "}
-            <p> number of cases </p>{" "}
-          </Col>
-          <Col xs="4">
-            {" "}
-            <p> number of deaths cases </p>{" "}
-          </Col>
-          <Col xs="4">
-            {" "}
-            <p> number of recoverd cases </p>{" "}
-          </Col>
-        
-            </Row>
-         </Col>
-        <Col xl={6} syle={{maxWidth:'300px'}}>
-         
-           <Image/>
-         
+          <Row style={{ width: "100%", height: "100%", alignItems: "center", margin: 0 }}>
+            <Col xs="4">
+              {" "}
+              <p>حالات الوفاة</p>{" "}
+            </Col>
+            <Col xs="4">
+              {" "}
+              <p>حالات التتعافي</p>{" "}
+            </Col>
+            <Col xs="4">
+              {" "}
+              <p> الحالات المؤكدة </p>{" "}
+            </Col>
+          </Row>
         </Col>
       </Row>
     </Container>
