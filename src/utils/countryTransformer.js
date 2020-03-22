@@ -8,9 +8,7 @@
 // return the arabic name from that object
 
 const countryTransformer = function(country) {
-  let countrycode = enCountries.find(element => {
-    return element.name.toLowerCase() === country.toLowerCase()
-  })
+  let countrycode = countryCode(country)
   console.log(countrycode, country)
   if (!countrycode) {
     return country
@@ -24,6 +22,18 @@ const countryTransformer = function(country) {
     } else {
       return country
     }
+  }
+}
+
+const countryCode = function(country) {
+  let countrycode = enCountries.find(element => {
+    return element.name.toLowerCase() === country.toLowerCase()
+  })
+  console.log(countrycode, country)
+  if (!countrycode) {
+    return country
+  } else {
+    return countrycode.code
   }
 }
 
@@ -1534,6 +1544,5 @@ const enCountries = [
   { name: "Zimbabwe", code: "ZW" },
 ]
 
-module.exports.enCountries = enCountries;
-module.exports.arCountries = arCountries;
-module.exports.countryTransformer = countryTransformer;
+module.exports.countryTransformer = countryTransformer
+module.exports.countryCode = countryCode
