@@ -13,19 +13,24 @@ const TableData = () => {
       const result = await axios
         .get(url)
         .then(res => {
-          console.log("outside the fucking function", res.data.Countries)
-          return res.data.Countries
+          console.debug("List of countries ", typeof res.data)
+          if (typeof res.data !== "object") {
+            const parsedData = JSON.parse(res.data)
+            console.log('parsed data',parsedData)
+            return parsedData.Countries;
+          } else {
+            return res.data.Countries
+          }
         })
         .catch(err => {
           console.log(err)
         })
+      console.log("this is countries lists", result)
       setData(result)
     }
 
     fetchData()
   }, [])
-
-  
 
   return (
     <div className="card" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
@@ -41,16 +46,16 @@ const TableData = () => {
           <Input type="text" name="search" />
         </Label>
       </div>
-      <Table bordered dir="rtl" style={{marginBottom:0}}>
+      <Table bordered dir="rtl" style={{ marginBottom: 0 }}>
         <thead>
           <tr>
-            <th>مجموع الدول المصابة {data !== null ? "( " + data.length + " )" : "(...)"}</th>
+            <th>مجموع الدول المصابة { data !== null ? data.length : "(...)" }</th>
             <td> الحالات الجديدة </td>
-                  <td> جميع الحالات المصابة</td>
-                  <td>حالات الوفيات الجديدة </td>
-                  <td> جميع حالات الوفيات </td>
-                  <td> حالات التعافي الجديدة </td>
-                  <td> جميع حالات التعافي </td>
+            <td> جميع الحالات المصابة</td>
+            <td>حالات الوفيات الجديدة </td>
+            <td> جميع حالات الوفيات </td>
+            <td> حالات التعافي الجديدة </td>
+            <td> جميع حالات التعافي </td>
           </tr>
         </thead>
         <tbody>
@@ -68,16 +73,15 @@ const TableData = () => {
                   <td> {el.TotalRecovered} </td>
                 </tr>
               ))}
-          
         </tbody>
         <tfoot>
-          <tr >
+          <tr>
             <th>الاجمالي </th>
-            <th> اجمالي الاصابات الحديثة  </th>
+            <th> اجمالي الاصابات الحديثة </th>
             <th>اجمالي الحالات </th>
             <th>اجمالي الوفيات الحديثة</th>
             <th>اجمالي الوفيات </th>
-            <th>اجمالي  التعافي الحديثة </th>
+            <th>اجمالي التعافي الحديثة </th>
             <th>اجمالي التعافي</th>
           </tr>
         </tfoot>
