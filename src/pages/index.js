@@ -1,7 +1,7 @@
 import React from "react"
 import Layout from "../components/Layout/layout"
 import SEO from "../components/SEO/seo"
-import Table from "../components/Table/table"
+import Table from "../components/CountriesTable/table"
 import MainStat from "../components/MainStat/mainStat"
 
 const IndexPage = () => (
