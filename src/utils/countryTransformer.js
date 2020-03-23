@@ -1,16 +1,11 @@
-// Plan
-//  Get Country name as a param
-// match it with an object on encountries
-// get the matched object's country code
-// return the country code
-// take the country code
-// find the same country code on arCountries array
-// return the arabic name from that object
+const countryTransformer = country => {
+  let countrycode = enCountries.find(element => {
+    return element.name.toLowerCase() === country.toLowerCase()
+  })
 
-const countryTransformer = function(country) {
-  let countrycode = countryCode(country)
-  console.log(countrycode, country)
-  if (!countrycode) {
+  // console.log(countrycode, country)
+  if (countrycode.code === country) {
+    // console.log("not found as arabic country")
     return country
   } else {
     let transformed = arCountries.find(element => {
@@ -18,22 +13,38 @@ const countryTransformer = function(country) {
     })
     console.log(typeof transformed)
     if (typeof transformed == "object") {
-      return transformed.name
+      // console.log("transformed.name", transformed.name)
+      return transformed.name;
     } else {
       return country
     }
   }
 }
 
-const countryCode = function(country) {
+const checkCountry = country => {
+  let countrycode = countryCode(country)
+  if (countrycode === country) {
+    return false
+  }else{
+    let transformed = arCountries.find(element => {
+      return element.code === countrycode.code
+    })
+    console.log(typeof transformed)
+    return true
+  }
+}
+
+const countryCode = country => {
   let countrycode = enCountries.find(element => {
     return element.name.toLowerCase() === country.toLowerCase()
   })
-  console.log(countrycode, country)
-  if (!countrycode) {
-    return country
-  } else {
+  // console.log(countrycode, country);
+  if (typeof countrycode === "object") {
     return countrycode.code
+  } else {
+    console.warn("not found in country code")
+
+    return country
   }
 }
 
@@ -1333,6 +1344,7 @@ const enCountries = [
   { name: "Cameroon", code: "CM" },
   { name: "Canada", code: "CA" },
   { name: "Cabo Verde", code: "CV" },
+  { name: "Cape Verde", code: "CV" },
   { name: "Cayman Islands", code: "KY" },
   { name: "Central African Republic", code: "CF" },
   { name: "Chad", code: "TD" },
@@ -1509,11 +1521,13 @@ const enCountries = [
   { name: "Sweden", code: "SE" },
   { name: "Switzerland", code: "CH" },
   { name: "Syrian Arab Republic", code: "SY" },
+  { name: "Syria", code: "SY" },
   { name: "Taiwan*", code: "TW" },
   { name: "Tajikistan", code: "TJ" },
   { name: "Tanzania", code: "TZ" },
   { name: "Thailand", code: "TH" },
   { name: "Timor-Leste", code: "TL" },
+  { name: "East Timor", code: "TL" },
   { name: "Togo", code: "TG" },
   { name: "Tokelau", code: "TK" },
   { name: "Tonga", code: "TO" },
@@ -1546,3 +1560,4 @@ const enCountries = [
 
 module.exports.countryTransformer = countryTransformer
 module.exports.countryCode = countryCode
+module.exports.checkCountry = checkCountry
