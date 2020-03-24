@@ -1,40 +1,14 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { Table, Label, Input } from "reactstrap"
-import { countryTransformer, countryCode, checkCountry } from "../../utils/countryTransformer"
+import {
+  countryTransformer,
+  countryCode,
+  checkCountry,
+} from "../../utils/countryTransformer"
 // import { Link } from "gatsby";
 import ReactCountryFlag from "react-country-flag"
-import DataTable from "react-data-table-component"
 import { Link } from "gatsby"
-
-const columns = [
-  {
-    name: "حالات التعافي",
-    selector: "TotalRecovered",
-    sortable: true,
-  },
-
-  {
-    name: "حالات الوفيات",
-    selector: "TotalDeaths",
-    sortable: true,
-  },
-  {
-    name: "حالات الاصابة",
-    selector: "TotalConfirmed",
-    sortable: true,
-  },
-  {
-    name: "الدولة",
-    selector: "CountryArabic",
-    sortable: true,
-    right: true,
-    style: {
-      backgroundColor: "rgba(90, 90, 90, 0.9)",
-      color: "white",
-    },
-  },
-]
 
 const TableData = () => {
   const [data, setData] = useState(null)
@@ -42,33 +16,34 @@ const TableData = () => {
   const [confirmed, setConfirmed] = useState(0)
 
   useEffect(() => {
-    
     const refactor = data => {
-      let newArray = data.filter((el ) => {
-        if( checkCountry(el.Country) ){
-          if (el.TotalConfirmed !== 0) {
-            return el         
+      let newArray = data
+        .filter(el => {
+          if (checkCountry(el.Country)) {
+            if (el.TotalConfirmed !== 0) {
+              return el
+            }
           }
-        }
-      }).sort( (a,b)=>{
-        return b.TotalConfirmed - a.TotalConfirmed 
-      })
-      .map(el=>{
-        return {
-          Country: el.Country,
-          CountryArabic: countryTransformer(el.Country),
-          CountryCode: countryCode(el.Country),
-          Slug: el.Slug,
-          NewConfirmed: el.NewConfirmed,
-          TotalConfirmed: el.TotalConfirmed,
-          NewDeaths: el.NewDeaths,
-          TotalDeaths: el.TotalDeaths,
-          NewRecovered: el.NewRecovered,
-          TotalRecovered: el.TotalRecovered,
-        } 
-      })
-      console.log('new array ',newArray) 
-     return newArray
+        })
+        .sort((a, b) => {
+          return b.TotalConfirmed - a.TotalConfirmed
+        })
+        .map(el => {
+          return {
+            Country: el.Country,
+            CountryArabic: countryTransformer(el.Country),
+            CountryCode: countryCode(el.Country),
+            Slug: el.Slug,
+            NewConfirmed: el.NewConfirmed,
+            TotalConfirmed: el.TotalConfirmed,
+            NewDeaths: el.NewDeaths,
+            TotalDeaths: el.TotalDeaths,
+            NewRecovered: el.NewRecovered,
+            TotalRecovered: el.TotalRecovered,
+          }
+        })
+      console.log("new array ", newArray)
+      return newArray
     }
 
     async function fetchData() {
@@ -89,9 +64,9 @@ const TableData = () => {
           console.log(err)
         })
       console.log("this is countries lists", result)
-      
-      const newData = refactor(result);
-      setData(newData);
+
+      const newData = refactor(result)
+      setData(newData)
       // setNonRefactored(result)
       confirmedCases(result)
     }
@@ -105,19 +80,9 @@ const TableData = () => {
       .map(el => el.NewConfirmed)
       .reduce((acc, cur) => acc + cur)
     setConfirmed(reducer + reducer2)
-    // console.log(reducer, reducer2)
-    // console.log(reducer + reducer2)
   }
   return (
     <div className="card" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-      {data == null ? (
-        "loading...."
-      ) : (
-        <DataTable
-          columns={columns}
-          data={data}
-        />
-      )}
       <div>
         <Label
           for="searchQuery"
@@ -129,12 +94,12 @@ const TableData = () => {
           <Input type="text" name="search" />
         </Label>
       </div>
-     
+
       <Table bordered dir="rtl" style={{ marginBottom: 0 }}>
         <thead>
           <tr>
             <th>مجموع الدول المصابة {data !== null ? data.length : "(...)"}</th>
-            
+
             <td> جميع الحالات المصابة {confirmed !== 0 ? confirmed : ""}</td>
             <td> جميع حالات الوفيات </td>
             <td> جميع حالات التعافي </td>
@@ -145,24 +110,24 @@ const TableData = () => {
             ? "loading...."
             : data.map((el, index) => (
                 <tr key={index}>
-                  <Link to="page-2" data={el}><td style={{ display: "flex", justifyContent: "flex-start" }}>
-                    {" "}
-                    
-                    <ReactCountryFlag
-                      className="emojiFlag"
-                      countryCode={countryCode(el.Country)}
-                      key={index}
-                      style={{
-                        fontSize: "2em",
-                        lineHeight: "2em",
-                        marginBottom: 0,
-                      }}
-                      aria-label={el.CountryArabic}
-                      svg
-                    />
-                     {el.CountryArabic}
-                   
-                  </td></Link>
+                  <td style={{ display: "flex", justifyContent: "flex-start" }}>
+                    <Link to="page-2" stata={{ data: el }} data={el}>
+                      {" "}
+                      <ReactCountryFlag
+                        className="emojiFlag"
+                        countryCode={countryCode(el.Country)}
+                        key={index}
+                        style={{
+                          fontSize: "2em",
+                          lineHeight: "2em",
+                          marginBottom: 0,
+                        }}
+                        aria-label={el.CountryArabic}
+                        svg
+                      />
+                      {el.CountryArabic}
+                    </Link>
+                  </td>
                   <td> {el.TotalConfirmed} </td>
                   <td> {el.TotalDeaths} </td>
                   <td> {el.TotalRecovered} </td>
@@ -174,11 +139,10 @@ const TableData = () => {
             <th>الاجمالي </th>
             <th>اجمالي الحالات </th>
             <th>اجمالي الوفيات </th>
-           <th>اجمالي التعافي</th>
+            <th>اجمالي التعافي</th>
           </tr>
         </tfoot>
       </Table>
-     
     </div>
   )
 }
