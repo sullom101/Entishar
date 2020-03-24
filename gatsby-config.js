@@ -26,7 +26,7 @@ module.exports = {
         theme_color: `#663399`,
         display: `standalone`,
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
-        legacy: false, 
+        legacy: false,
         include_favicon: false,
         cache_busting_mode: `none`, // `query`(default), `name`, or `none`
         lang: `ar`,
@@ -41,7 +41,22 @@ module.exports = {
         // ],
       },
     },
-    
+    {
+      resolve: "gatsby-source-apiserver",
+      options: {
+        url: "https://api.covid19api.com/countries",
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        typePrefix: "internal__",
+        name: `countries`,
+        params: {
+          results: 10,
+        },
+        verboseOutput: true,
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     `gatsby-plugin-offline`,
