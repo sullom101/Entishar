@@ -111,7 +111,7 @@ const TableData = () => {
             : data.map((el, index) => (
                 <tr key={index}>
                   <td style={{ display: "flex", justifyContent: "flex-start" }}>
-                    <Link to="page-2" stata={{ data: el }} data={el}>
+                    <Link to={el.Slug} stata={{ data: el }} data={el}>
                       {" "}
                       <ReactCountryFlag
                         className="emojiFlag"
