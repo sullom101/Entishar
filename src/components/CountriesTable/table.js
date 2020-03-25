@@ -12,7 +12,6 @@ import { Link } from "gatsby"
 
 const TableData = () => {
   const [data, setData] = useState(null)
-  // const [NonrefactoredData, setNonRefactored] = useState(0)
   const [confirmed, setConfirmed] = useState(0)
 
   useEffect(() => {
@@ -81,70 +80,76 @@ const TableData = () => {
       .reduce((acc, cur) => acc + cur)
     setConfirmed(reducer + reducer2)
   }
-  return (
-    <div className="card" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-      <div>
-        <Label
-          for="searchQuery"
-          size="lg"
-          style={{ display: "flex" }}
-          className="float-right"
-        >
-          {/* <ReactCountryFlag countryCode="US" svg/> */} Search
-          <Input type="text" name="search" />
-        </Label>
+  if( data !== null){
+    return (
+    
+      <div className="card" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
+        <div>
+          <Label
+            for="searchQuery"
+            size="lg"
+            style={{ display: "flex" }}
+            className="float-right"
+          >
+            {/* <ReactCountryFlag countryCode="US" svg/> */} Search
+            <Input type="text" name="search" />
+          </Label>
+        </div>
+  
+        <Table bordered dir="rtl" style={{ marginBottom: 0 }}>
+          <thead>
+            <tr>
+              <th>مجموع الدول المصابة {data !== null ? data.length : "(...)"}</th>
+  
+              <td> جميع الحالات المصابة {confirmed !== 0 ? confirmed : ""}</td>
+              <td> جميع حالات الوفيات </td>
+              <td> جميع حالات التعافي </td>
+            </tr>
+          </thead>
+          <tbody>
+            {data == null
+              ? "loading...."
+              : data.map((el, index) => (
+                  <tr key={index}>
+                    <td style={{ display: "flex", justifyContent: "flex-start" }}>
+                      <Link to={el.Slug} stata={{ data: el }} data={el}>
+                        {" "}
+                        <ReactCountryFlag
+                          className="emojiFlag"
+                          countryCode={countryCode(el.Country)}
+                          key={index}
+                          style={{
+                            fontSize: "2em",
+                            lineHeight: "2em",
+                            marginBottom: 0,
+                          }}
+                          aria-label={el.CountryArabic}
+                          svg
+                        />
+                        {el.CountryArabic}
+                      </Link>
+                    </td>
+                    <td> {el.TotalConfirmed} </td>
+                    <td> {el.TotalDeaths} </td>
+                    <td> {el.TotalRecovered} </td>
+                  </tr>
+                ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>الاجمالي </th>
+              <th>اجمالي الحالات </th>
+              <th>اجمالي الوفيات </th>
+              <th>اجمالي التعافي</th>
+            </tr>
+          </tfoot>
+        </Table>
       </div>
-
-      <Table bordered dir="rtl" style={{ marginBottom: 0 }}>
-        <thead>
-          <tr>
-            <th>مجموع الدول المصابة {data !== null ? data.length : "(...)"}</th>
-
-            <td> جميع الحالات المصابة {confirmed !== 0 ? confirmed : ""}</td>
-            <td> جميع حالات الوفيات </td>
-            <td> جميع حالات التعافي </td>
-          </tr>
-        </thead>
-        <tbody>
-          {data == null
-            ? "loading...."
-            : data.map((el, index) => (
-                <tr key={index}>
-                  <td style={{ display: "flex", justifyContent: "flex-start" }}>
-                    <Link to={el.Slug} stata={{ data: el }} data={el}>
-                      {" "}
-                      <ReactCountryFlag
-                        className="emojiFlag"
-                        countryCode={countryCode(el.Country)}
-                        key={index}
-                        style={{
-                          fontSize: "2em",
-                          lineHeight: "2em",
-                          marginBottom: 0,
-                        }}
-                        aria-label={el.CountryArabic}
-                        svg
-                      />
-                      {el.CountryArabic}
-                    </Link>
-                  </td>
-                  <td> {el.TotalConfirmed} </td>
-                  <td> {el.TotalDeaths} </td>
-                  <td> {el.TotalRecovered} </td>
-                </tr>
-              ))}
-        </tbody>
-        <tfoot>
-          <tr>
-            <th>الاجمالي </th>
-            <th>اجمالي الحالات </th>
-            <th>اجمالي الوفيات </th>
-            <th>اجمالي التعافي</th>
-          </tr>
-        </tfoot>
-      </Table>
-    </div>
-  )
+    )
+  }else{
+return (<p> Loading ...</p>)
+  }
+  
 }
 
 export default TableData
