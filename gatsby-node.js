@@ -23,10 +23,10 @@ exports.createPages = ({ graphql, actions }) => {
     }
   `).then(result => {
     result.data.allInternalCountries.edges.forEach(({ node }) => {
-      console.log(node.Slug)
-      if(node.Slug !== null){
+      console.log(typeof node.Slug)
+      if(typeof node.Slug === "string"){
         createPage({
-          path: node.Slug,
+          path: `/country/${node.Slug}`,
           component: path.resolve(`./src/templates/country.js`),
           context: {
             // This is the $slug variable
