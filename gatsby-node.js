@@ -26,7 +26,7 @@ exports.createPages = ({ graphql, actions }) => {
       console.log(node.Slug)
       if(node.Slug !== null){
         createPage({
-          path: node.Slug,
+          path: `/country/${node.Slug}`,
           component: path.resolve(`./src/templates/country.js`),
           context: {
             // This is the $slug variable
