@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { graphql } from "gatsby"
 
-import CountryPage from "../pages/country"
+import CountryPage from "../pages/country-page"
 
 export default ({ data }) => {
   const countryData = data.allInternalCountries.edges[0].node
