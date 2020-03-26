@@ -75,10 +75,8 @@ const TableData = () => {
     let reducer = result
       .map(el => el.TotalConfirmed)
       .reduce((acc, cur) => acc + cur)
-    let reducer2 = result
-      .map(el => el.NewConfirmed)
-      .reduce((acc, cur) => acc + cur)
-    setConfirmed(reducer + reducer2)
+    
+    setConfirmed(reducer)
   }
   if( data !== null){
     return (
@@ -112,7 +110,7 @@ const TableData = () => {
               : data.map((el, index) => (
                   <tr key={index}>
                     <td style={{ display: "flex", justifyContent: "flex-start" }}>
-                      <Link to={el.Slug} stata={{ data: el }} data={el}>
+                      <Link to={`country/${el.Slug}`} stata={{ data: el }} data={el}>
                         {" "}
                         <ReactCountryFlag
                           className="emojiFlag"
