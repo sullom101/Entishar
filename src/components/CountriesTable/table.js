@@ -87,26 +87,26 @@ const TableData = () => {
             for="searchQuery"
             size="lg"
             style={{ display: "flex" }}
-            className="float-right"
+            className="float-right pr-4"
           >
-            {/* <ReactCountryFlag countryCode="US" svg/> */} Search
-            <Input type="text" name="search" />
+            {/* <ReactCountryFlag countryCode="US" svg/> */} 
+            <Input type="text" name="search"  dir="rtl" placeholder=" البحث"/>
           </Label>
         </div>
-  
+    <div className="table-responsive table-hover p-3"> 
         <Table bordered dir="rtl" style={{ marginBottom: 0 }}>
           <thead>
             <tr>
               <th>مجموع الدول المصابة {data !== null ? data.length : "(...)"}</th>
   
-              <td> جميع الحالات المصابة {confirmed !== 0 ? confirmed : ""}</td>
+              <td> جميع الحالات المصابة </td>
               <td> جميع حالات الوفيات </td>
               <td> جميع حالات التعافي </td>
             </tr>
           </thead>
           <tbody>
             {data == null
-              ? "loading...."
+              ? "يتم التحديث...."
               : data.map((el, index) => (
                   <tr key={index}>
                     <td style={{ display: "flex", justifyContent: "flex-start" }}>
@@ -121,31 +121,32 @@ const TableData = () => {
                             lineHeight: "2em",
                             marginBottom: 0,
                           }}
-                          aria-label={el.CountryArabic}
+                          
                           svg
                         />
-                        {el.CountryArabic}
+                        <p> {el.CountryArabic} </p>
                       </Link>
                     </td>
-                    <td> {el.TotalConfirmed} </td>
-                    <td> {el.TotalDeaths} </td>
-                    <td> {el.TotalRecovered} </td>
+                    <td style={{color:'red'}}> {el.TotalConfirmed} </td>
+                    <td style={{color:'black'}}> {el.TotalDeaths} </td>
+                    <td style={{color:'green'}}> {el.TotalRecovered} </td>
                   </tr>
                 ))}
           </tbody>
           <tfoot>
             <tr>
               <th>الاجمالي </th>
-              <th>اجمالي الحالات </th>
-              <th>اجمالي الوفيات </th>
-              <th>اجمالي التعافي</th>
+              <th style={{ backgroundColor: "red", color:'white' }}>  اجمالي الحالات {confirmed !== 0 ? confirmed : ""} </th>
+              <th style={{ backgroundColor: "black", color:'white' }}>اجمالي الوفيات  </th>
+              <th style={{ backgroundColor: "green", color:'white' }}>اجمالي التعافي</th>
             </tr>
           </tfoot>
         </Table>
+        </div>
       </div>
     )
   }else{
-return (<p> Loading ...</p>)
+return (<p>  ... يتم التحديث</p>)
   }
   
 }
