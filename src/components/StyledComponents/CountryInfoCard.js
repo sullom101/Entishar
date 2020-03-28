@@ -11,7 +11,7 @@ const CountryInfoCard = styled.div`
   /** border: 1px solid rgba(0, 0, 0, 0.125);*/
   border-radius: 0.25rem;
   margin: 2rem 0;
-  background-color: #2c77ff; 
+  /**background-color: #2c77ff; */
   padding: 3px;
 `
 export default CountryInfoCard;
