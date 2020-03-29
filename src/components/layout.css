@@ -42,10 +42,14 @@ template {
 a {
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
+  text-decoration: none !important;
+  color:inherit !important;
 }
 a:active,
 a:hover {
   outline-width: 0;
+  text-decoration: none !important;
+  color:inherit !important;
 }
 abbr[title] {
   border-bottom: none;
@@ -422,6 +426,21 @@ table {
   line-height: 1.45rem;
   border-collapse: collapse;
   width: 100%;
+  background-color: #e5e5e5  !important;
+  color: rgba(0,0,0,1)!important;
+}
+tbody td{
+  border: 1px #fff solid!important;
+}
+thead tr th{
+  border: 1px #fff solid!important;
+}
+thead tr td{
+  border: 1px #fff solid!important;
+}
+.table-hover tbody tr:hover {
+  background-color: #fff  !important;
+  color: rgba(0,0,0,1)!important;
 }
 fieldset {
   margin-left: 0;
