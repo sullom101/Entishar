@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
       {theme => (
         <div className={theme.dark ? "dark" : "light"}>
           <Header siteTitle={data.site.siteMetadata.title} />
-          <Container fluid={true} style={{ backgroundColor: "#f5f7fc" }}>
+          <Container fluid={true} >
             <Wrapper className="container">{children}</Wrapper>
           </Container>
           <Footer />
