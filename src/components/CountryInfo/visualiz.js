@@ -15,6 +15,11 @@ const  Visualiz= (props)=> {
         data: props.deathData,
         backgroundColor: "red",
       },
+      {
+        label: "Total recovered Cases",
+        data: props.recoveredData,
+        backgroundColor: "green",
+      },
     ],
   }
   return (
@@ -24,7 +29,7 @@ const  Visualiz= (props)=> {
         options={{
           title:{
             display:true,
-            text:'" Cases"',
+            text:'Total cases Stats ',
             fontSize:25,
             fontFamily:'Lato'
           },
