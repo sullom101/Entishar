@@ -1,21 +1,25 @@
 import React from "react"
-import { Container } from "reactstrap"
 import Image from "../image"
 import { countryCode } from "../../utils/countryTransformer"
 import ReactCountryFlag from "react-country-flag"
+import styled from "styled-components"
+
+const WrapperGrid = styled.div`
+  padding: 2rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  grid-column-gap: 7%;
+  @media only screen and (max-width: 768px)  {
+    grid-template-columns: 1fr;
+    grid-column-gap: 7%;
+  }
+`
 
 const MainEach = props => {
   console.log("Main Each Component data", props.data)
 
   return (
-    <Container
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1.2fr",
-        gridColumnGap: "7%",
-        padding: "2rem 0",
-      }}
-    >
+    <WrapperGrid className="container">
       <div>
         <div
           style={{
@@ -125,7 +129,7 @@ const MainEach = props => {
           </p>
         </div>
       </div>
-    </Container>
+    </WrapperGrid>
   )
 }
 

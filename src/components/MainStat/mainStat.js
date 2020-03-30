@@ -1,19 +1,24 @@
 import React from "react"
 import { Container, Col, Row } from "reactstrap"
 import Image from "../image"
+import styled from "styled-components"
+
+const WrapperGrid = styled.div`
+  padding: 2rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  grid-column-gap: 7%;
+  @media only screen and (max-width: 768px)  {
+    grid-template-columns: 1fr;
+    grid-column-gap: 7%;
+  }
+`
 
 const MainStat = (props) => {
   const summary = props.summary
   if (summary !== null) {
   return (
-    <Container
-      style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1.2fr",
-        gridColumnGap: '7%',
-        padding: "2rem 0",
-      }}
-    >
+    <WrapperGrid className="container">
       <div>
         <div
           style={{
@@ -102,7 +107,7 @@ const MainStat = (props) => {
         </div>
       </div>
      
-    </Container>
+      </WrapperGrid>
   )}
   else{
     return ""
