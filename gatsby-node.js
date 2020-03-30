@@ -24,7 +24,7 @@ exports.createPages = ({ graphql, actions }) => {
   `).then(result => {
     result.data.allInternalCountries.edges.forEach(({ node }) => {
       console.log(typeof node.Slug)
-      if(typeof node.Slug === "string"){
+      if( typeof node.Slug === "string" && node.Slug !== ""){
         createPage({
           path: `/country/${node.Slug}`,
           component: path.resolve(`./src/templates/country.js`),
@@ -39,3 +39,4 @@ exports.createPages = ({ graphql, actions }) => {
     })
   })
 }
+
