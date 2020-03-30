@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import { Container } from "reactstrap"
-
 import { useStaticQuery, graphql } from "gatsby"
 import { Link } from "gatsby"
 import Head from "../StyledComponents/header"
 import Input from "../StyledComponents/Input"
+import Country from "./searchResults"
 
 const Header = props => {
   const [data, setData] = useState(null)
   const [inputText, setInputText] = useState("")
   const [filtered, setFiltered] = useState(null)
+  const [show, setShow] = useState(false)
+  const wrapperRef = useRef(null)
+  // useOutsideAlerter(wrapperRef, show)
 
   const CountryData = useStaticQuery(graphql`
     query SiteCountries {
@@ -36,12 +39,31 @@ const Header = props => {
         }
         return
       })
-      console.log("this is array redunduncy", array)
+      // console.log("this is array redunduncy", array)
       setData(array)
       return array
     }
     removeRedun()
+
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
   }, [])
+
+  const handleClickOutside = e => {
+    if (wrapperRef.current.contains(e.target)) {
+      // inside click
+      console.log("inside click")
+      setShow(true)
+    } else {
+      // Outside Click
+      console.log("outside click")
+      setShow(false)
+    }
+  }
 
   const filterCountries = val => {
     const value = val.target.value.toLowerCase()
@@ -56,7 +78,7 @@ const Header = props => {
     // setInputText(value)
 
     setFiltered(filteredData)
-    console.log("this is filtered data", filteredData)
+    // console.log("this is filtered data", filteredData)
   }
 
   return (
@@ -100,7 +122,10 @@ const Header = props => {
               gridColumnGap: "10px",
             }}
           >
-            <div style={{ alignSelf: "center", position: "relative" }}>
+            <div
+              style={{ alignSelf: "center", position: "relative" }}
+              ref={wrapperRef}
+            >
               {" "}
               <label
                 style={{
@@ -130,7 +155,6 @@ const Header = props => {
                   onChange={val => {
                     setInputText(val.target.value)
                     filterCountries(val)
-                    // setInputText(val.target.value)
                   }}
                 />
               </label>
@@ -138,11 +162,9 @@ const Header = props => {
                 style={{
                   position: "absolute",
                   margin: 0,
-                  padding: 0,
-                  paddingTop: 10,
-                  paddingBottom: 10,
                   width: "69%",
-                  backgroundColor: inputText == "" ? "" : "#f2cc85",
+                  backgroundColor: "#f2cc85",
+                  display: show ? "block" : "none",
                   borderRadius: 12,
                   zIndex: 2,
                 }}
@@ -158,9 +180,6 @@ const Header = props => {
                         }
                       })
                   : ""}
-                {/* {
-                    inputText !== ""? <li> {inputText }</li>:''
-                  } */}
               </ul>
             </div>
             <div>
@@ -183,60 +202,70 @@ const Header = props => {
         }}
       >
         <Link
-        to={'/country/malaysia'}
+          to={"/country/malaysia"}
           style={{
             backgroundColor: "#e5e5e5",
             padding: "0.5rem 0",
             margin: 0,
             textAlign: "center",
-            borderRadius:10
+            borderRadius: 10,
           }}
         >
-          <img  src={require("../../images/home.png")} style={{
-            width:50, marginBottom: '0.5rem' }} />
-          <p style={{margin:0}}>
-            Home
-          </p>
+          <img
+            src={require("../../images/home.png")}
+            style={{
+              width: 50,
+              marginBottom: "0.5rem",
+            }}
+          />
+          <p style={{ margin: 0 }}>Home</p>
         </Link>
         <Link
-        to={'/'}
+          to={"/"}
           style={{
             backgroundColor: "#e5e5e5",
             padding: "0.5rem 0",
             margin: 0,
             textAlign: "center",
-            borderRadius:10
+            borderRadius: 10,
           }}
         >
-          <img src={require("../../images/world.png")} style={{width:50,marginBottom: '0.5rem'}} />
-          <p style={{margin:0}}>
-            World
-          </p>
+          <img
+            src={require("../../images/world.png")}
+            style={{ width: 50, marginBottom: "0.5rem" }}
+          />
+          <p style={{ margin: 0 }}>World</p>
         </Link>
       </Container>
     </Head>
   )
 }
 
-const Country = props => {
-  console.log(props.data)
-  return (
-    <Link to={`/country/${props.data.Slug}`}>
-      <li
-        style={{
-          color: "white",
-          listStyleType: "none",
-          backgroundColor: "#f2cc85",
-          borderRadius: 10,
-          marginBottom: 11,
-          padding: 5,
-        }}
-      >
-        {" "}
-        {props.data.Country}
-      </li>
-    </Link>
-  )
+function useOutsideAlerter(ref, show) {
+  const showing = show
+
+  useEffect(() => {
+    /**
+     * Alert if clicked on outside of element
+     */
+
+    function handleClickOutside(event) {
+      if (show === true) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          console.log("You clicked outside of me! show is true")
+          return
+        }
+        console.log("show is false")
+      }
+    }
+
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [ref])
 }
 
 export default Header
