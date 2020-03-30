@@ -1,41 +1,38 @@
-import React, { useState, useEffect } from "react"
+import React,{useState,useEffect} from "react"
 import axios from "axios"
 // import {Container} from 'reactstrap'
 import CountryInfoCard from "../StyledComponents/CountryInfoCard"
 import MainCountryStatWrapper from "../StyledComponents/MainCountryStatWrapper"
 import DailyGraphWrapper from "../StyledComponents/dailyGraphWrapper"
 import Visualiz from "./visualiz"
-import CasesbyState from "./CasesByStates"
+import CasesbyDay from "./CasesByDay"
 const Summary = props => {
-  const [summary, setSummary] = useState(null)
   const [countryConfirmed, setCountryConfirmed] = useState(null)
-  const [label, setLabel] = useState(null)
-  const [dataset, setdataset] = useState(null)
   const [deaths, setDeaths] = useState(null)
   const [recovered, setRecovered] = useState(null)
+  const [label, setLabel] = useState(null)
+  const [dataset, setdataset] = useState(null)
 
-  useEffect(() => {
-    const summaryData = async () => {
-      const getSummary = await axios
-        .get(`https://api.covid19api.com/summary`)
-        .then(res => {
-          const find = res.data.Countries.find(el => el.Slug == props.data.Slug)
-          return find
-        })
-        .catch(err => console.log(err))
-      console.log("loging returned summary data", getSummary)
-      setSummary(getSummary)
-    }
+  useEffect(()=>{
     const countryConfirmed = async () => {
       const getConfirmed = await axios
         .get(
-          `https://api.covid19api.com/total/country/${props.data.Slug}/status/confirmed`
+          `https://api.covid19api.com/total/country/${props.data.Slug}/status/confirmed`,
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            },
+            withCredentials: false,
+          }
         )
         .then(res => {
-          console.log("this is a test for confirmed cases", res.data)
+          console.log(" confirmed cases second call", res.data)
           return res.data
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log('couldnt get confirmed cases (second call)',err)
+        })
 
       const dateAxis = date => {
         var d = new Date(date)
@@ -43,31 +40,45 @@ const Summary = props => {
 
         return result
       }
-      
+
       let templabel = []
       let tempData = []
-      getConfirmed.map(el => {
-        templabel.push(dateAxis(el.Date))
-        tempData.push(el.Cases)
-      })
+
+      if(getConfirmed !== undefined){
+        getConfirmed.map(el => {
+          templabel.push(dateAxis(el.Date))
+          tempData.push(el.Cases)
+        })
+      }
+      
       setLabel(templabel)
       setdataset(tempData)
-      console.log("loging temp data data", tempData)
-      console.log("loging temp date as a label", templabel)
-      console.log("loging returned confirmed data", getConfirmed)
+      // console.log("loging temp data data", tempData)
+      // console.log("loging temp date as a label", templabel)
+      // console.log("loging returned confirmed data", getConfirmed)
       setCountryConfirmed(getConfirmed)
     }
 
     const countryDeaths = async () => {
       const getDeaths = await axios
         .get(
-          `https://api.covid19api.com/total/country/${props.data.Slug}/status/deaths`
+          `https://api.covid19api.com/total/country/${props.data.Slug}/status/deaths`,
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            },
+            withCredentials: false,
+          }
         )
         .then(res => {
-          console.log("this is a test for death cases", res.data)
+          console.log("death cases third call ", res.data)
           return res.data
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log('couldnt get death cases from api third call' ,err)
+          // getDeaths()
+        })
       let tempDeath = []
 
       getDeaths.map(el => {
@@ -79,13 +90,23 @@ const Summary = props => {
     const countryRecovered = async () => {
       const getRecovered = await axios
         .get(
-          `https://api.covid19api.com/total/country/${props.data.Slug}/status/recovered`
+          `https://api.covid19api.com/total/country/${props.data.Slug}/status/recovered`,
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            },
+            withCredentials: false,
+          }
         )
         .then(res => {
-          console.log("this is a test for Recovered cases", res.data)
+          console.log(" Recovered cases fourth call", res.data)
           return res.data
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log('couldnt get recovered data from api fourth call',err)
+          // getRecovered()
+        })
 
       let tempData = []
 
@@ -96,39 +117,37 @@ const Summary = props => {
       setRecovered(tempData)
     }
 
-    summaryData()
-    countryConfirmed()
+    
     countryDeaths()
     countryRecovered()
-    console.log("getSummary Data", summary)
-  }, [])
+    countryConfirmed() 
+  },[])
 
   return (
     <div>
       <DailyGraphWrapper>
         <CountryInfoCard>
-          {label && dataset && deaths && recovered !== null ? (
-            <Visualiz
+         {
+           deaths && label && recovered && dataset !== null?
+           <Visualiz
               deathData={deaths}
               label={label}
               recoveredData={recovered}
               data={dataset}
-            />
-          ) : (
-            "Loading....."
-          )}
+            />:''
+         }
+            
+         
         </CountryInfoCard>
       </DailyGraphWrapper>
       <DailyGraphWrapper>
         <CountryInfoCard>
-          {countryConfirmed && summary !== null ? (
-            <CasesbyState
+       
+            <CasesbyDay
               data={countryConfirmed}
-              summary={summary.TotalConfirmed}
+              summary={props.summary.TotalConfirmed}
             />
-          ) : (
-            "Loading....."
-          )}
+      
         </CountryInfoCard>
       </DailyGraphWrapper>
     </div>
