@@ -12,7 +12,14 @@ const IndexPage = () => {
     async function fetchData() {
       const url = "https://api.covid19api.com/summary"
       const result = await axios
-        .get(url)
+        .get(url,
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            },
+            withCredentials: false,
+          })
         .then(res => {
           console.debug("List of countries ", typeof res.data)
           if (typeof res.data !== "object") {
