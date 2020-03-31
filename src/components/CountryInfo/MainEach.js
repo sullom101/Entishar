@@ -1,15 +1,24 @@
-import React from "react"
+import React, { Component, useEffect, useState } from "react"
 import Image from "../image"
+import axios from "axios"
 import { countryCode } from "../../utils/countryTransformer"
 import ReactCountryFlag from "react-country-flag"
 import styled from "styled-components"
+import {
+  ComposableMap,
+  ZoomableGroup,
+  Geographies,
+  Geography,
+  Markers,
+  Marker,
+} from "react-simple-maps"
 
 const WrapperGrid = styled.div`
   padding: 2rem 0;
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   grid-column-gap: 7%;
-  @media only screen and (max-width: 768px)  {
+  @media only screen and (max-width: 768px) {
     grid-template-columns: 1fr;
     grid-column-gap: 7%;
   }
@@ -17,6 +26,37 @@ const WrapperGrid = styled.div`
 
 const MainEach = props => {
   console.log("Main Each Component data", props.data)
+  const [cordinates, setCordinates] = useState(null)
+
+  useEffect(() => {
+    const getCordinates = async () => {
+      const cordinateData = await axios
+        .get(
+          `https://api.covid19api.com/country/${props.data.Slug}/status/confirmed`,
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            },
+            withCredentials: false,
+          }
+        )
+        .then(res => {
+          const Lon = res.data[res.data.length - 1].Lon
+          const Lat = res.data[res.data.length - 1].Lat
+          return {
+            Lat: Lat,
+            Lon: Lon,
+          }
+        })
+        .catch(err => {
+          console.log("first call to summary data", err)
+        })
+
+      setCordinates(cordinateData)
+    }
+    getCordinates()
+  }, [])
 
   return (
     <WrapperGrid className="container">
@@ -49,8 +89,22 @@ const MainEach = props => {
             svg
           />
         </div>
-        <div>
-          <Image />
+        <div className="container">
+          {/* <Image /> */}
+          {/* {
+            (cordinates !== null ) ? <ComposableMap
+            projectionConfig={{ scale: 1000 }}
+            width={980}
+            height={551}
+            style={{
+              width: "100%",
+              height: "auto",
+            }}
+          >
+            <ZoomableGroup center={[cordinates.Lon, cordinates.Lat]} disablePanning></ZoomableGroup>
+          </ComposableMap>:''
+          } */}
+<Image/>
         </div>
       </div>
       <div>
@@ -64,7 +118,7 @@ const MainEach = props => {
             padding: 7,
             marginBottom: "1rem",
             display: "grid",
-            gridTemplateColumns: "1fr 2fr 1fr",
+            gridTemplateColumns: "1fr 2fr 2fr",
             gridColumnGap: 8,
             alignItems: "center",
           }}
@@ -77,6 +131,10 @@ const MainEach = props => {
           <p style={{ margin: 0 }}> Confirmed</p>
           <p style={{ margin: 0 }}>
             {props.summary ? props.summary.TotalConfirmed : "----"}
+            <span style={{ float: "right", fontSize: 12 }}>
+              {" "}
+              &#8593; {props.summary.NewConfirmed}{" "}
+            </span>
           </p>
         </div>
         <div
@@ -88,7 +146,7 @@ const MainEach = props => {
             padding: 7,
             marginBottom: "1rem",
             display: "grid",
-            gridTemplateColumns: "1fr 2fr 1fr",
+            gridTemplateColumns: "1fr 2fr 2fr",
             gridColumnGap: 8,
             alignItems: "center",
           }}
@@ -101,6 +159,10 @@ const MainEach = props => {
           <p style={{ margin: 0 }}> Recovered</p>
           <p style={{ margin: 0 }}>
             {props.summary ? props.summary.TotalRecovered : "----"}
+            <span style={{ float: "right", fontSize: 12 }}>
+              {" "}
+              &#8593; {props.summary.NewRecovered}{" "}
+            </span>
           </p>
         </div>
 
@@ -113,7 +175,7 @@ const MainEach = props => {
             padding: 7,
             marginBottom: "1rem",
             display: "grid",
-            gridTemplateColumns: "1fr 2fr 1fr",
+            gridTemplateColumns: "1fr 2fr 2fr",
             gridColumnGap: 8,
             alignItems: "center",
           }}
@@ -126,6 +188,10 @@ const MainEach = props => {
           <p style={{ margin: 0 }}> Deaths</p>
           <p style={{ margin: 0 }}>
             {props.summary ? props.summary.TotalDeaths : "----"}
+            <span style={{ float: "right", fontSize: 12 }}>
+              {" "}
+              &#8593; {props.summary.NewDeaths}{" "}
+            </span>
           </p>
         </div>
       </div>
@@ -134,3 +200,4 @@ const MainEach = props => {
 }
 
 export default MainEach
+
