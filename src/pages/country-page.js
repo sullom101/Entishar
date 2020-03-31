@@ -5,8 +5,9 @@ import MainEach from "../components/CountryInfo/MainEach"
 import Layout from "../components/Layout/layout"
 // import SEO from "../components/SEO/seo"
 // import Image from "../components/image"
-
+import Spinner from "../components/Spinner/Spinner"
 import Summary from "../components/CountryInfo/Summary"
+import { countryCode } from "../utils/countryTransformer"
 
 const SecondPage = props => {
   const [summary, setSummary] = useState(null)
@@ -24,7 +25,19 @@ const SecondPage = props => {
         .then(res => {
           const find = res.data.Countries.find(el => el.Slug == props.data.Slug)
           console.log("first call made summary countries", find)
-          return find
+          const obj = {
+            Country: find.Country,
+            Code: countryCode(find.Country),
+            Slug: find.Slug,
+            NewConfirmed: find.NewConfirmed,
+            TotalConfirmed: find.TotalConfirmed,
+            NewDeaths: find.NewDeaths,
+            TotalDeaths: find.TotalDeaths,
+            NewRecovered: find.NewRecovered,
+            TotalRecovered: find.TotalRecovered,
+          }
+
+          return obj
         })
         .catch(err => {
           console.log("first call to summary data", err)
@@ -43,7 +56,7 @@ const SecondPage = props => {
       </Layout>
     )
   } else {
-    return ""
+    return <Spinner />
   }
 }
 
