@@ -1,6 +1,5 @@
-import React,{useState,useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import axios from "axios"
-// import {Container} from 'reactstrap'
 import CountryInfoCard from "../StyledComponents/CountryInfoCard"
 import MainCountryStatWrapper from "../StyledComponents/MainCountryStatWrapper"
 import DailyGraphWrapper from "../StyledComponents/dailyGraphWrapper"
@@ -13,7 +12,7 @@ const Summary = props => {
   const [label, setLabel] = useState(null)
   const [dataset, setdataset] = useState(null)
 
-  useEffect(()=>{
+  useEffect(() => {
     const countryConfirmed = async () => {
       const getConfirmed = await axios
         .get(
@@ -31,7 +30,7 @@ const Summary = props => {
           return res.data
         })
         .catch(err => {
-          console.log('couldnt get confirmed cases (second call)',err)
+          console.log("couldnt get confirmed cases (second call)", err)
         })
 
       const dateAxis = date => {
@@ -44,18 +43,15 @@ const Summary = props => {
       let templabel = []
       let tempData = []
 
-      if(getConfirmed !== undefined){
+      if (getConfirmed !== undefined) {
         getConfirmed.map(el => {
           templabel.push(dateAxis(el.Date))
           tempData.push(el.Cases)
         })
       }
-      
+
       setLabel(templabel)
       setdataset(tempData)
-      // console.log("loging temp data data", tempData)
-      // console.log("loging temp date as a label", templabel)
-      // console.log("loging returned confirmed data", getConfirmed)
       setCountryConfirmed(getConfirmed)
     }
 
@@ -76,7 +72,7 @@ const Summary = props => {
           return res.data
         })
         .catch(err => {
-          console.log('couldnt get death cases from api third call' ,err)
+          console.log("couldnt get death cases from api third call", err)
           // getDeaths()
         })
       let tempDeath = []
@@ -104,7 +100,7 @@ const Summary = props => {
           return res.data
         })
         .catch(err => {
-          console.log('couldnt get recovered data from api fourth call',err)
+          console.log("couldnt get recovered data from api fourth call", err)
           // getRecovered()
         })
 
@@ -117,41 +113,47 @@ const Summary = props => {
       setRecovered(tempData)
     }
 
-    
     countryDeaths()
     countryRecovered()
-    countryConfirmed() 
-  },[])
+    countryConfirmed()
+  }, [])
 
   return (
     <div>
       <DailyGraphWrapper>
         <CountryInfoCard>
-         {
-           deaths && label && recovered && dataset !== null?
-           <Visualiz
+          {deaths && label && recovered && dataset !== null ? (
+            <Visualiz
               deathData={deaths}
               label={label}
               recoveredData={recovered}
               data={dataset}
-            />:''
-         }
-            
-         
+            />
+          ) : (
+            ""
+          )}
         </CountryInfoCard>
       </DailyGraphWrapper>
       <DailyGraphWrapper>
-        <CountryInfoCard>
-       
-            <CasesbyDay
-              data={countryConfirmed}
-              summary={props.summary.TotalConfirmed}
-            />
-      
-        </CountryInfoCard>
+        {/* <CountryInfoCard>
+          <CasesbyDay
+            data={countryConfirmed}
+            summary={props.summary.TotalConfirmed}
+          />
+        </CountryInfoCard> */}
       </DailyGraphWrapper>
+      {/* <MainCountryStatWrapper>
+        {props.data.Provinces.length > 1 ? <Table /> : ""}
+      </MainCountryStatWrapper> */}
     </div>
   )
 }
 
+const Table = props => {
+  return (
+    <div>
+      <p>this is tabe </p>
+    </div>
+  )
+}
 export default Summary
