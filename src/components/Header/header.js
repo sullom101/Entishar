@@ -153,7 +153,7 @@ const Header = props => {
                   name="search"
                   type="text"
                   onChange={val => {
-                    setInputText(val.target.value)
+                    setInputText(val.target.value.toLocaleLowerCase())
                     filterCountries(val)
                   }}
                 />
