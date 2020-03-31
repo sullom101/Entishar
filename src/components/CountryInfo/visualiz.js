@@ -17,7 +17,7 @@ const Visualiz = props => {
       {
         label: "Total Death Cases",
         data: props.deathData,
-        backgroundColor: "9e9e9e",
+        backgroundColor: "black",
       },
       {
         label: "Total recovered Cases",
