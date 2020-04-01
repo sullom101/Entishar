@@ -1,6 +1,7 @@
 import React from "react"
 import { Table } from "reactstrap"
 import { Link } from "gatsby"
+import styled from "styled-components"
 
 const TableData = props => {
   const data = props.data
@@ -45,35 +46,42 @@ const TableData = props => {
                           <td style={{ color: "black" }}>
                             {" "}
                             {el.TotalDeaths}{" "}
-                            <span style={{ float: "right", fontSize: 12 }}> &#8593; {el.NewDeaths}</span>{" "}
+                            <span style={{ float: "right", fontSize: 12 }}>
+                              {" "}
+                              &#8593; {el.NewDeaths}
+                            </span>{" "}
                           </td>
                           <td style={{ color: "green" }}>
                             {" "}
                             {el.TotalRecovered}{" "}
-                            
-                            <span style={{ float: "right", fontSize: 12 }}>&#8593; {el.NewRecovered}</span>{" "}
+                            <span style={{ float: "right", fontSize: 12 }}>
+                              &#8593; {el.NewRecovered}
+                            </span>{" "}
                           </td>
                         </tr>
                       )
                     }
                   })}
             </tbody>
-            {/* <tfoot>
-              <tr>
-                <th>الاجمالي </th>
-                <th style={{ backgroundColor: "red", color: "white" }}>
-                  {" "}
-                  اجمالي الحالات {confirmed !== 0 ? confirmed : ""}{" "}
-                </th>
-                <th style={{ backgroundColor: "black", color: "white" }}>
-                  اجمالي الوفيات{" "}
-                </th>
-                <th style={{ backgroundColor: "green", color: "white" }}>
-                  اجمالي التعافي
-                </th>
-              </tr>
-            </tfoot> */}
           </Table>
+          <p>
+            <span style={{ fontSize: "10px", color: "#757170" }}>
+              This table gets updated once each day with data by{" "}
+              <ATag
+                href="https://www.worldometers.info/coronavirus"
+                target="_blank"
+              >
+                {" "}
+                Worldometers &{" "}
+              </ATag>{" "}
+              <ATag
+                href="https://github.com/CSSEGISandData/COVID-19"
+                target="_blank"
+              >
+                Johns Hopkins{" "}
+              </ATag> if you want more accurate stats check country pages
+            </span>
+          </p>
         </div>
       </div>
     )
@@ -83,3 +91,6 @@ const TableData = props => {
 }
 
 export default TableData
+const ATag = styled.a`
+  color: #007bff !important;
+`
