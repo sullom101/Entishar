@@ -6,6 +6,7 @@ import MainStat from "../components/MainStat/mainStat"
 import axios from "axios"
 import Spinner from "../components/Spinner/Spinner"
 import { countryCode } from "../utils/countryTransformer"
+import Frames from "../components/Frames/Frames"
 
 const IndexPage = () => {
   const [summary, setSummary] = useState(null)
@@ -69,46 +70,35 @@ const IndexPage = () => {
       )
       setData(sortedData)
 
-      summaryCases(sortedData)
+      // summaryCases(sortedData)
     }
+    const fetchSummary = async () => {
+      const url = "https://covid19.mathdro.id/api"
+      const result = await axios
+        .get(url,{
+          withCredentials: false,
+        })
+        .then(res => {
+          const obj = {
+            TotalConfirmed: res.data.confirmed.value,
+            TotalDeaths: res.data.deaths.value,
+            TotalRecovered: res.data.recovered.value,
+          }
+          console.log(obj)
+          return obj
+        })
+        .catch(err => {
+          console.log(err)
+          return
+        })
+
+      setSummary(result)
+      return result
+    }
+
     fetchData()
+    fetchSummary()
   }, [])
-
-  const summaryCases = result => {
-    let obj = {}
-    const confirmed = result
-      .map(el => el.TotalConfirmed)
-      .reduce((acc, cur) => acc + cur)
-    const newConfirmed = result
-      .map(el => el.NewConfirmed)
-      .reduce((acc, cur) => acc + cur)
-    const newDeaths = result
-      .map(el => el.NewDeaths)
-      .reduce((acc, cur) => acc + cur)
-    const newRecovered = result
-      .map(el => el.NewRecovered)
-      .reduce((acc, cur) => acc + cur)
-
-    const deaths = result
-      .map(el => el.TotalDeaths)
-      .reduce((acc, cur) => acc + cur)
-    const recovered = result
-      .map(el => el.TotalRecovered)
-
-      .reduce((acc, cur) => acc + cur)
-    obj = {
-      TotalConfirmed: confirmed,
-      TotalDeaths: deaths,
-      TotalRecovered: recovered,
-      NewConfirmed: newConfirmed,
-      NewDeaths: newDeaths,
-      NewRecovered: newRecovered,
-    }
-    console.log("this is an array of importat data", obj)
-    // return array;
-
-    setSummary(obj)
-  }
 
   if (summary && data !== null) {
     return (
@@ -117,16 +107,9 @@ const IndexPage = () => {
         <MainStat summary={summary} data={data} />
         <Table summary={summary} data={data} />
 
-        <iframe
-          title={"outbreak data"}
-          style={{ width: "100%" }}
-          width="100%"
-          height="550"
-          src="https://www.outbreak.my/widget/viruscompare"
-          frameBorder="0"
-          allow="autoplay; encrypted-media;picture-in-picture"
-          allowFullScreen={true}
-        ></iframe>
+        <Frames />
+
+        <div></div>
       </Layout>
     )
   } else {
