@@ -19,26 +19,33 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `Covid-19`,
-        description: `The application shows updated stats for covid outbreak.`,
+        description: `The application shows updated stats for covid outbreak. as a contribution from Alieniz to the open source world`,
         short_name: `Covid-19`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#1f1d1d`,
+        theme_color: `#1f1d1d`,
         display: `standalone`,
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
         legacy: false,
         include_favicon: false,
         cache_busting_mode: `none`, // `query`(default), `name`, or `none`
-        lang: `ar`,
-        // localize: [
-        //   {
-        //     start_url: `/ar/`,
-        //     lang: `ar`,
-        //     name: `Die coole Anwendung`,
-        //     short_name: `Coole Anwendung`,
-        //     description: `Die Anwendung macht coole Dinge und macht Ihr Leben besser.`,
-        //   },
-        // ],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        // The property ID; the tracking code won't be generated without it
+        trackingId: "UA-104681216-2",
+        // Defines where to place the tracking script - `true` in the head and `false` in the body
+        head: true,
+        // Setting this parameter is optional
+        anonymize: true,
+        // Setting this parameter is also optional
+        respectDNT: true,
+        // Any additional optional fields
+        sampleRate: 5,
+        siteSpeedSampleRate: 10,
+        cookieDomain: "covid.alieniz.com",
       },
     },
     {
