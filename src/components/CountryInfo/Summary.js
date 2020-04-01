@@ -4,7 +4,8 @@ import CountryInfoCard from "../StyledComponents/CountryInfoCard"
 import MainCountryStatWrapper from "../StyledComponents/MainCountryStatWrapper"
 import DailyGraphWrapper from "../StyledComponents/dailyGraphWrapper"
 import Visualiz from "./visualiz"
-import CasesbyDay from "./CasesByDay"
+import Pie from "./Pie"
+
 const Summary = props => {
   const [countryConfirmed, setCountryConfirmed] = useState(null)
   const [deaths, setDeaths] = useState(null)
@@ -135,25 +136,18 @@ const Summary = props => {
         </CountryInfoCard>
       </DailyGraphWrapper>
       <DailyGraphWrapper>
-        {/* <CountryInfoCard>
-          <CasesbyDay
-            data={countryConfirmed}
-            summary={props.summary.TotalConfirmed}
+        {deaths && label && recovered && dataset !== null ? (
+          <Pie
+          RecoveryRate={props.summary.RecoveryRate}
+          DeathRate={props.summary.DeathRate}
+          summary={props.summary}
           />
-        </CountryInfoCard> */}
+        ) : (
+          ""
+        )}
       </DailyGraphWrapper>
-      {/* <MainCountryStatWrapper>
-        {props.data.Provinces.length > 1 ? <Table /> : ""}
-      </MainCountryStatWrapper> */}
     </div>
   )
 }
 
-const Table = props => {
-  return (
-    <div>
-      <p>this is tabe </p>
-    </div>
-  )
-}
 export default Summary
