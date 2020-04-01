@@ -5,7 +5,7 @@ import { Link } from "gatsby"
 import Head from "../StyledComponents/header"
 import Input from "../StyledComponents/Input"
 import Country from "./searchResults"
-
+import Image from './Vector'
 const Header = props => {
   const [data, setData] = useState(null)
   const [inputText, setInputText] = useState("")
@@ -107,7 +107,7 @@ const Header = props => {
               C
               <span style={{ marginRight: 5, marginLeft: 5 }}>
                 <img
-                  src={require("../../images/virus.png")}
+                  src={require("../../images/logo.png")}
                   width={43}
                   style={{ marginBottom: 0 }}
                 />
@@ -184,8 +184,7 @@ const Header = props => {
             </div>
             <div>
               {" "}
-              <img
-                src={require("../../images/vector.png")}
+              <Image
                 width={43}
                 style={{ marginBottom: 0, width: "80%" }}
               />{" "}
