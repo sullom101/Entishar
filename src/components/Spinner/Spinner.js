@@ -1,8 +1,8 @@
 import React from "react"
 import styled from "styled-components"
 const SVG = styled.svg`
-  width: 350px;
-  height: 100px;
+  width: 30vw;
+  height: 20vh;
   margin: 20px;
   display: inline-block;
 `
@@ -19,98 +19,6 @@ const Spinner = () => {
         flexDirection:'column'
       }}
     >
-      {/* <SVG
-        version={"1.1"}
-        id={"Layer_1"}
-        xmlns={"http://www.w3.org/2000/svg"}
-        xmlnsXlink={"http://www.w3.org/1999/xlink"}
-        x={0}
-        y={0}
-        viewBox={"0 0 100 100"}
-        enableBackground
-        enableBackground={"new 0 0 100 100"}
-        xmlSpace={"preserve"}
-      >
-        <rect
-          fill={"#1f1d1d"}
-          width={6}
-          height={100}
-          transform={"translate(0) rotate(180 3 50)"}
-        >
-          <animate
-            attributeName={"height"}
-            attributeType={"XML"}
-            dur={"1s"}
-            values={"30; 100; 30"}
-            repeatCount={"indefinite"}
-          />
-        </rect>
-        <rect
-          x={"17"}
-          fill={"#1f1d1d"}
-          width={6}
-          height={100}
-          transform={"translate(0) rotate(180 20 50)"}
-        >
-          <animate
-            attributeName={"height"}
-            attributeType={"XML"}
-            dur={"1s"}
-            values={"30; 100; 30"}
-            repeatCount={"indefinite"}
-            begin={"0.1s"}
-          />
-        </rect>
-        <rect
-          x={40}
-          fill={"#1f1d1d"}
-          width={6}
-          height={100}
-          transform={"translate(0) rotate(180 40 50)"}
-        >
-          <animate
-            attributeName={"height"}
-            attributeType={"XML"}
-            dur={"1s"}
-            values={"30; 100; 30"}
-            repeatCount={"indefinite"}
-            begin={"0.3s"}
-          />
-        </rect>
-        <rect
-          x={"60"}
-          fill={"#1f1d1d"}
-          width={6}
-          height={100}
-          transform={"translate(0) rotate(180 58 50)"}
-        >
-          <animate
-            attributeName={"height"}
-            attributeType={"XML"}
-            dur={"1s"}
-            values={"30; 100; 30"}
-            repeatCount={"indefinite"}
-            begin={"0.5s"}
-          />
-        </rect>
-        <rect
-          x={80}
-          fill="#1f1d1d"
-          width={6}
-          height={100}
-          transform={"translate(0) rotate(180 76 50)"}
-        >
-          <animate
-            attributeName={"height"}
-            attributeType={"XML"}
-            dur={"1s"}
-            values={"30; 100; 30"}
-            repeatCount={"indefinite"}
-            begin={"0.1s"}
-          />
-        </rect>
-      </SVG>
-     */}
       <SVG
         version="1.1"
         id="L1"
@@ -125,9 +33,9 @@ const Spinner = () => {
         <circle
           fill="none"
           stroke="#950202"
-          stroke-width="6"
-          stroke-miterlimit="15"
-          stroke-dasharray="14.2472,14.2472"
+          strokeWidth="6"
+          strokeMiterlimit="15"
+          strokeDasharray="14.2472,14.2472"
           cx="50"
           cy="50"
           r="47"
@@ -145,9 +53,9 @@ const Spinner = () => {
         <circle
           fill="none"
           stroke="#950202"
-          stroke-width="1"
-          stroke-miterlimit="10"
-          stroke-dasharray="10,10"
+          strokeWidth="1"
+          strokeMiterlimit="10"
+          strokeDasharray="10,10"
           cx="50"
           cy="50"
           r="39"
