@@ -13,15 +13,39 @@ import {
   Marker,
 } from "react-simple-maps"
 
+const StatWrapper = styled.div`
+  padding: 7px;
+  margin: 1rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 5%;
+  align-items: center;
+  @media only screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-column-gap: 7%;
+  }
+`
 const WrapperGrid = styled.div`
   padding: 2rem 0;
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: 1fr;
   grid-column-gap: 7%;
   @media only screen and (max-width: 768px) {
     grid-template-columns: 1fr;
     grid-column-gap: 7%;
   }
+`
+
+const CardWrapper = styled.div`
+  background-color: rgb(229, 229, 229);
+  border: none;
+  border-radius: 49px;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 10%;
+  align-items: center;
+  justify-content: center;
 `
 
 const MainEach = props => {
@@ -89,115 +113,105 @@ const MainEach = props => {
             svg
           />
         </div>
-        <div className="container">
-          {/* <Image /> */}
-          {/* {
-            (cordinates !== null ) ? <ComposableMap
-            projectionConfig={{ scale: 1000 }}
-            width={980}
-            height={551}
-            style={{
-              width: "100%",
-              height: "auto",
-            }}
-          >
-            <ZoomableGroup center={[cordinates.Lon, cordinates.Lat]} disablePanning></ZoomableGroup>
-          </ComposableMap>:''
-          } */}
-<Image/>
-        </div>
+     
       </div>
-      <div>
-        <div style={{ padding: 30 }}></div>
-        <div
-          style={{
-            backgroundColor: "#e5e5e5",
-            color: "#d60303",
-            border: "none",
-            borderRadius: 10,
-            padding: 7,
-            marginBottom: "1rem",
-            display: "grid",
-            gridTemplateColumns: "1fr 2fr 2fr",
-            gridColumnGap: 8,
-            alignItems: "center",
-          }}
-        >
+  
+
+      <StatWrapper>
+        <CardWrapper style={{ color: "#d60303" }}>
           <img
             src={require("../../images/confirmed.png")}
-            style={{ margin: 0 }}
-            width={50}
+            style={{ margin: "0 auto" }}
+            width={60}
           />
-          <p style={{ margin: 0 }}> Confirmed</p>
-          <p style={{ margin: 0 }}>
-            {props.summary ? props.summary.TotalConfirmed : "----"}
-            <span style={{ float: "right", fontSize: 12 }}>
-              {" "}
-              &#8593; {props.summary.NewConfirmed}{" "}
-            </span>
+          <p
+            style={{
+              textAlign: "center",
+              margin: "8px 0 20px 0",
+              fontSize: "1.2rem",
+            }}
+          >
+            {" "}
+            Confirmed
           </p>
-        </div>
-        <div
-          style={{
-            backgroundColor: "#e5e5e5",
-            color: "#2b7900",
-            border: "none",
-            borderRadius: 10,
-            padding: 7,
-            marginBottom: "1rem",
-            display: "grid",
-            gridTemplateColumns: "1fr 2fr 2fr",
-            gridColumnGap: 8,
-            alignItems: "center",
-          }}
-        >
+          <p
+            style={{
+              margin: "1rem 0 0 ",
+              fontSize: "1.4rem",
+              textAlign: "center",
+            }}
+          >
+            {props.summary.TotalConfirmed}
+            {/* <span style={{ float: "right", fontSize: 12 }}>
+                {" "}
+                &#8593; {summary.NewConfirmed}{" "}
+              </span> */}
+          </p>
+        </CardWrapper>
+        <CardWrapper style={{ color: "#2b7900" }}>
           <img
             src={require("../../images/recovered.png")}
-            style={{ margin: 0 }}
-            width={50}
+            style={{ margin: "0 auto" }}
+            width={60}
           />
-          <p style={{ margin: 0 }}> Recovered</p>
-          <p style={{ margin: 0 }}>
-            {props.summary ? props.summary.TotalRecovered : "----"}
-            <span style={{ float: "right", fontSize: 12 }}>
-              {" "}
-              &#8593; {props.summary.NewRecovered}{" "}
-            </span>
+          <p
+            style={{
+              textAlign: "center",
+              margin: "8px 0 20px 0",
+              fontSize: "1.2rem",
+            }}
+          >
+            {" "}
+            Recovered
           </p>
-        </div>
+          <p
+            style={{
+              margin: "1rem 0 0 ",
+              fontSize: "1.4rem",
+              textAlign: "center",
+            }}
+          >
+            {props.summary.TotalRecovered}
+            {/* <span style={{ float: "right", fontSize: 12 }}>
+                {" "}
+                &#8593; {summary.NewRecovered}{" "}
+              </span> */}
+          </p>
+        </CardWrapper>
 
-        <div
-          style={{
-            backgroundColor: "#e5e5e5",
-            color: "#000",
-            border: "none",
-            borderRadius: 10,
-            padding: 7,
-            marginBottom: "1rem",
-            display: "grid",
-            gridTemplateColumns: "1fr 2fr 2fr",
-            gridColumnGap: 8,
-            alignItems: "center",
-          }}
-        >
+        <CardWrapper style={{ color: "#000" }}>
           <img
             src={require("../../images/death.png")}
-            style={{ margin: 0 }}
-            width={50}
+            style={{ margin: "0 auto" }}
+            width={60}
           />
-          <p style={{ margin: 0 }}> Deaths</p>
-          <p style={{ margin: 0 }}>
-            {props.summary ? props.summary.TotalDeaths : "----"}
-            <span style={{ float: "right", fontSize: 12 }}>
-              {" "}
-              &#8593; {props.summary.NewDeaths}{" "}
-            </span>
+          <p
+            style={{
+              textAlign: "center",
+              margin: "8px 0 20px 0",
+              fontSize: "1.2rem",
+            }}
+          >
+            {" "}
+            Deaths
           </p>
-        </div>
-      </div>
+          <p
+            style={{
+              margin: "1rem 0 0 ",
+              fontSize: "1.4rem",
+              textAlign: "center",
+            }}
+          >
+            {props.summary.TotalDeaths}{" "}
+            {/* <span style={{ float: "right", fontSize: 12 }}>
+                {" "}
+                &#8593; {summary.NewDeaths}{" "}
+              </span> */}
+          </p>
+        </CardWrapper>
+      </StatWrapper>
     </WrapperGrid>
   )
 }
 
 export default MainEach
-
