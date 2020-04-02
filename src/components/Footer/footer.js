@@ -7,9 +7,9 @@ const  Footer = ()=> {
     <Foot>
       <Container>
         <Row>
-          <Col className="float-right">
-            Copyrights © {new Date().getFullYear()}{" "}
-            <a href="https://www.alieniz.com">Alieniz</a>. All rights-reserved
+          <Col className="float-right" style={{textAlign:'center'}}>
+            Made with Love<span style={{padding:'0 5px'}}> &#x2764;</span>  by 
+            <a href="https://www.alieniz.com"> Alieniz</a>.
             {` `}
           </Col>
         </Row>
