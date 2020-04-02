@@ -38,14 +38,6 @@ module.exports = {
         trackingId: "UA-104681216-2",
         // Defines where to place the tracking script - `true` in the head and `false` in the body
         head: true,
-        // Setting this parameter is optional
-        anonymize: true,
-        // Setting this parameter is also optional
-        respectDNT: true,
-        // Any additional optional fields
-        sampleRate: 5,
-        siteSpeedSampleRate: 10,
-        cookieDomain: "covid.alieniz.com",
       },
     },
     {
