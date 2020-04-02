@@ -18,8 +18,8 @@ const PieChart = props => {
       datasets: [
         {
           data: [props.RecoveryRate, props.DeathRate, 100-props.DeathRate - props.RecoveryRate],
-          backgroundColor: [green, gradient,'e5e5e5'],
-          hoverBackgroundColor: [green, gradient, '#e5e5e5'],
+          backgroundColor: [green, '#000', gradient],
+          hoverBackgroundColor: [green, '#000', gradient],
         },
       ],
     }
