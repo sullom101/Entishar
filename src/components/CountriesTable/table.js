@@ -1,6 +1,5 @@
 import React from "react"
 import { Table } from "reactstrap"
-// import { Link } from "gatsby"
 import styled from "styled-components"
 import { injectIntl, Link, FormattedMessage } from "gatsby-plugin-intl"
 const TableData = props => {
