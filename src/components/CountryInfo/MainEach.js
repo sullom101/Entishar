@@ -61,10 +61,10 @@ const MainEach = props => {
           }}
         >
           
-          <h1 style={{ margin: 0, padding: "0 5px" }}> {props.data.Country}</h1>
+          <h1 style={{ margin: 0, padding: "0 5px" }}> {props.data.country}</h1>
           <ReactCountryFlag
             className="emojiFlag"
-            countryCode={countryCode(props.data.Country)}
+            countryCode={props.data.countryInfo.iso2}
             style={{
               marginBottom: 0,
               width: 50,
