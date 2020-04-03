@@ -11,6 +11,14 @@ import { countryCode } from "../utils/countryTransformer"
 
 const SecondPage = props => {
   const [summary, setSummary] = useState(null)
+  const data = props.data
+  // const summary = {
+  //   TotalConfirmed: data.cases,
+  //   TotalDeaths: data.deaths,
+  //   TotalRecovered: data.recovered,
+  //   RecoveryRate : Math.round(data.recovered*100 / data.cases),
+  //   DeathRate : Math.round(data.deaths * 100 / data.cases),
+  // }
 
   useEffect(() => {
     // const summaryData = async () => {
@@ -47,18 +55,18 @@ const SecondPage = props => {
     // }
 
     const fetchSummary = async () => {
-      const url = `https://covid19.mathdro.id/api/countries/${props.data.Country}`
+      const url = `https://corona.lmao.ninja/countries/${props.data.country}`
       const result = await axios
         .get(url,{
           withCredentials: false,
         })
         .then(res => {
           const obj = {
-            TotalConfirmed: res.data.confirmed.value,
-            TotalDeaths: res.data.deaths.value,
-            TotalRecovered: res.data.recovered.value,
-            RecoveryRate : Math.round(res.data.recovered.value*100 / res.data.confirmed.value),
-            DeathRate : Math.round(res.data.deaths.value * 100 / res.data.confirmed.value),
+            TotalConfirmed: res.data.cases,
+            TotalDeaths: res.data.deaths,
+            TotalRecovered: res.data.recovered,
+            RecoveryRate : Math.round(res.data.recovered*100 / res.data.cases),
+            DeathRate : Math.round(res.data.deaths * 100 / res.data.cases),
           }
           console.log(obj)
           return obj

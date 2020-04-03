@@ -5,57 +5,52 @@ import Table from "../components/CountriesTable/table"
 import MainStat from "../components/MainStat/mainStat"
 import axios from "axios"
 import Spinner from "../components/Spinner/Spinner"
-import { countryCode } from "../utils/countryTransformer"
 import Frames from "../components/Frames/Frames"
-
+import {slugify} from '../utils/slugMaker'
 const IndexPage = () => {
   const [summary, setSummary] = useState(null)
   const [data, setData] = useState(null)
   useEffect(() => {
     async function fetchData() {
-      const url = "https://api.covid19api.com/summary"
+      const url = "https://corona.lmao.ninja/countries?sort=country"
       const result = await axios
         .get(url, {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-          },
           withCredentials: false,
         })
         .then(res => {
-          console.debug("List of countries ", typeof res.data)
+          console.log("List of countries ",  res.data)
           if (typeof res.data !== "object") {
             const parsedData = JSON.parse(res.data)
             console.log("parsed data", parsedData)
             const newData = []
             parsedData.forEach(el => {
               const obj = {
-                Country: el.Country,
-                Code: countryCode(el.Country),
-                Slug: el.Slug,
-                NewConfirmed: el.NewConfirmed,
-                TotalConfirmed: el.TotalConfirmed,
-                NewDeaths: el.NewDeaths,
-                TotalDeaths: el.TotalDeaths,
-                NewRecovered: el.NewRecovered,
-                TotalRecovered: el.TotalRecovered,
+                Country: el.country,
+                Code: el.countryInfo.iso2,
+                Slug: slugify(el.country),
+                NewConfirmed: el.todayCases,
+                TotalConfirmed: el.cases,
+                NewDeaths: el.todayDeaths,
+                TotalDeaths: el.deaths,
+                NewRecovered: el.recovered,
+                TotalRecovered: el.recovered,
               }
               newData.push(obj)
             })
             return newData
           } else {
             const newData = []
-            res.data.Countries.forEach(el => {
+            res.data.forEach(el => {
               const obj = {
-                Country: el.Country,
-                Code: countryCode(el.Country),
-                Slug: el.Slug,
-                NewConfirmed: el.NewConfirmed,
-                TotalConfirmed: el.TotalConfirmed,
-                NewDeaths: el.NewDeaths,
-                TotalDeaths: el.TotalDeaths,
-                NewRecovered: el.NewRecovered,
-                TotalRecovered: el.TotalRecovered,
+                Country: el.country,
+                Code: el.countryInfo.iso2,
+                Slug: slugify(el.country),
+                NewConfirmed: el.todayCases,
+                TotalConfirmed: el.cases,
+                NewDeaths: el.todayDeaths,
+                TotalDeaths: el.deaths,
+                NewRecovered: el.recovered,
+                TotalRecovered: el.recovered,
               }
               newData.push(obj)
             })
