@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react"
 import { Container } from "reactstrap"
 import { useStaticQuery, graphql } from "gatsby"
 // import { Link } from "gatsby"
+import {slugify} from '../../utils/slugMaker'
 import Head from "../StyledComponents/header"
 import Input from "../StyledComponents/Input"
 import Country from "./searchResults"
@@ -31,8 +32,24 @@ const Header = props => {
       allInternalCountries {
         edges {
           node {
-            Country
-            Slug
+            active
+            cases
+            casesPerOneMillion
+            country
+            countryInfo {
+              flag
+              iso2
+              iso3
+              long
+              lat
+            }
+            critical
+            deathsPerOneMillion
+            deaths
+            recovered
+            todayCases
+            todayDeaths
+            id
           }
         }
       }
@@ -43,16 +60,18 @@ const Header = props => {
     const removeRedun = () => {
       let array = []
       searchData.map(el => {
-        if (el.node.Country !== null) {
+        console.log('this is object', el.node)
+        if (typeof el.node.country === "string" && el.node.country !=="" ) {
           array.push({
-            Country: el.node.Country.toLowerCase(),
-            Slug: el.node.Slug,
+            Country: el.node.country,
+            Slug: slugify(el.node.country),
           })
         }
         return
       })
       // console.log("this is array redunduncy", array)
       setData(array)
+      console.log('array of slugs and country',array)
       return array
     }
     removeRedun()
@@ -80,7 +99,6 @@ const Header = props => {
     const value = val.target.value.toLowerCase()
     console.log("this is Data from filtered countried function", data)
     const filteredData = data.filter(el => {
-      // console.log(el.Country)
       if (el.Country !== null) {
         return el.Country.toLowerCase().includes(value)
       }
@@ -325,7 +343,7 @@ const Header = props => {
                       margin: 10,
                       textDecoration: currentLocale === language ? `underline`: 'none',
                       cursor: `pointer`,
-                      display: 'inline-block',
+                      display: `inline-block`,
                     }}
                   >
                     {languageName[language]}
