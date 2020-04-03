@@ -1,6 +1,7 @@
 import React from "react"
 import { Container, Col, Row, Button } from "reactstrap"
 import Foot from '../StyledComponents/footer';
+import { FormattedMessage } from "gatsby-plugin-intl"
 
 const  Footer = ()=> {
   return (
@@ -8,8 +9,9 @@ const  Footer = ()=> {
       <Container>
         <Row>
           <Col className="float-right" style={{textAlign:'center'}}>
-            Made with Love<span style={{padding:'0 5px'}}> &#x2764;</span>  by 
-            <a href="https://www.alieniz.com"> Alieniz</a>.
+          <FormattedMessage id="Made with Love" />
+          <span style={{padding:'0 5px'}}> &#x2764;</span> 
+            <a href="https://www.alieniz.com"> <FormattedMessage id="by Alieniz" /></a>.
             {` `}
           </Col>
         </Row>

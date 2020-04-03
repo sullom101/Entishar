@@ -1,7 +1,9 @@
 import React from "react"
 import { Line } from "react-chartjs-2"
+import { useIntl} from "gatsby-plugin-intl"
 
 const Visualiz = props => {
+  const intl = useIntl()
   // const chartData = {
   const chartData = canvas => {
     const ctx = canvas.getContext("2d")
@@ -17,17 +19,17 @@ const Visualiz = props => {
       labels: props.label,
       datasets: [
         {
-          label: "Total Confirmed Cases",
+          label: intl.formatMessage({ id: "Total Confirmed Cases" }),
           data: props.data,
           backgroundColor: gradient,
         },
         {
-          label: "Total Death Cases",
+          label:  intl.formatMessage({ id: "Total Death Cases" }),
           data: props.deathData,
           backgroundColor: "black",
         },
         {
-          label: "Total recovered Cases",
+          label:  intl.formatMessage({ id:"Total recovered Cases" }),
           data: props.recoveredData,
           backgroundColor: green,
         },
@@ -43,7 +45,7 @@ const Visualiz = props => {
           maintainAspectRatio: false,
           title: {
             display: true,
-            text: "Total cases Stats",
+            text:intl.formatMessage({ id: "Total Cases Stats" }),
             fontSize: 25,
             fontFamily: "Lato",
           },

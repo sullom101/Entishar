@@ -1,8 +1,8 @@
 import React from "react"
 import { Table } from "reactstrap"
-import { Link } from "gatsby"
+// import { Link } from "gatsby"
 import styled from "styled-components"
-
+import { injectIntl, Link, FormattedMessage } from "gatsby-plugin-intl"
 const TableData = props => {
   const data = props.data
   if (data !== null) {
@@ -12,10 +12,10 @@ const TableData = props => {
           <Table bordered style={{ marginBottom: 0 }}>
             <thead>
               <tr>
-                <th>Country {data !== null ? data.length - 2 : "(...)"}</th>
-                <td> Confirmed </td>
-                <td> Deaths </td>
-                <td> Recovered </td>
+                <th><FormattedMessage id="Country" /> </th>
+                <td> <FormattedMessage id="Confirmed" /> </td>
+                <td> <FormattedMessage id="Deaths" /> </td>
+                <td> <FormattedMessage id="Recovered" /> </td>
               </tr>
             </thead>
             <tbody>
@@ -27,7 +27,7 @@ const TableData = props => {
                         <tr key={index}>
                           <td>
                             <Link
-                              to={`country/${el.Slug}`}
+                              to={`/country/${el.Slug}`}
                               stata={{ data: el }}
                               data={el}
                             >

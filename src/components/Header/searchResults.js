@@ -1,7 +1,6 @@
 
 import React, { useRef, useEffect } from "react"
-import { Link } from "gatsby"
-
+import { Link  } from "gatsby-plugin-intl"
 const SearchResult = props => {
   console.log(props.data)
   return (

@@ -1,7 +1,10 @@
 import React from "react"
 import { Pie } from "react-chartjs-2"
-
+import { useIntl } from "gatsby-plugin-intl"
 const PieChart = props => {
+
+  const intl = useIntl()
+
   const chartData = canvas => {
     const ctx = canvas.getContext("2d")
     const gradient = ctx.createLinearGradient(90, 100, 0, 0)
@@ -14,7 +17,7 @@ const PieChart = props => {
 
 
     return {
-      labels: ["Recovery Rate", "Death Rate",'Others'],
+      labels: [ intl.formatMessage({ id:"Recovery Rate" }) ,intl.formatMessage({ id:"Death Rate" }) ,intl.formatMessage({ id:"Others" })],
       datasets: [
         {
           data: [props.RecoveryRate, props.DeathRate, 100-props.DeathRate - props.RecoveryRate],
