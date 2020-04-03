@@ -32,6 +32,19 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-intl`,
+      options: {
+        // language JSON resource path
+        path: `${__dirname}/locale`,
+        // supported language
+        languages: [`en`, `ar`],
+        // language file path
+        defaultLanguage: `en`,
+        // option to redirect to `/en` when connecting `/`
+        redirect: true,
+      },
+    },
+    {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         // The property ID; the tracking code won't be generated without it
@@ -62,23 +75,23 @@ module.exports = {
         fonts: [
           {
             family: `Roboto Mono`,
-            variants: [`400`, `700`]
+            variants: [`400`, `700`],
           },
           {
             family: `Roboto`,
-            subsets: [`latin`]
+            subsets: [`latin`],
           },
           {
             family: `Montserrat`,
-            variants: [`400`, `700`]
+            variants: [`400`, `700`],
           },
           {
             family: `Lato`,
-            variants: [`400`, `700`]
+            variants: [`400`, `700`],
           },
           {
             family: `Poppins`,
-            variants: [`400`, `700`]
+            variants: [`400`, `700`],
           },
         ],
       },
