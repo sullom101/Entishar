@@ -56,7 +56,7 @@ module.exports = {
     {
       resolve: "gatsby-source-apiserver",
       options: {
-        url: "https://api.covid19api.com/countries",
+        url: "https://corona.lmao.ninja/countries",
         method: "get",
         headers: {
           "Content-Type": "application/json",
