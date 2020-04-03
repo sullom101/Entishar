@@ -4,14 +4,8 @@ import axios from "axios"
 import { countryCode } from "../../utils/countryTransformer"
 import ReactCountryFlag from "react-country-flag"
 import styled from "styled-components"
-import {
-  ComposableMap,
-  ZoomableGroup,
-  Geographies,
-  Geography,
-  Markers,
-  Marker,
-} from "react-simple-maps"
+
+import { useIntl , FormattedMessage } from "gatsby-plugin-intl"
 
 const StatWrapper = styled.div`
   padding: 7px;
@@ -49,38 +43,7 @@ const CardWrapper = styled.div`
 `
 
 const MainEach = props => {
-  console.log("Main Each Component data", props.data)
-  const [cordinates, setCordinates] = useState(null)
-
-  useEffect(() => {
-    const getCordinates = async () => {
-      const cordinateData = await axios
-        .get(
-          `https://api.covid19api.com/country/${props.data.Slug}/status/confirmed`,
-          {
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Content-Type": "application/json",
-            },
-            withCredentials: false,
-          }
-        )
-        .then(res => {
-          const Lon = res.data[res.data.length - 1].Lon
-          const Lat = res.data[res.data.length - 1].Lat
-          return {
-            Lat: Lat,
-            Lon: Lon,
-          }
-        })
-        .catch(err => {
-          console.log("first call to summary data", err)
-        })
-
-      setCordinates(cordinateData)
-    }
-    getCordinates()
-  }, [])
+  const intl = useIntl()
 
   return (
     <WrapperGrid className="container">
@@ -97,6 +60,7 @@ const MainEach = props => {
             gridTemplateColumns: "2fr 1fr",
           }}
         >
+          
           <h1 style={{ margin: 0, padding: "0 5px" }}> {props.data.Country}</h1>
           <ReactCountryFlag
             className="emojiFlag"
@@ -132,7 +96,7 @@ const MainEach = props => {
             }}
           >
             {" "}
-            Confirmed
+            <FormattedMessage id="Confirmed" />
           </p>
           <p
             style={{
@@ -162,7 +126,7 @@ const MainEach = props => {
             }}
           >
             {" "}
-            Recovered
+            <FormattedMessage id="Recovered" />
           </p>
           <p
             style={{
@@ -192,8 +156,7 @@ const MainEach = props => {
               fontSize: "1.2rem",
             }}
           >
-            {" "}
-            Deaths
+            {" "}<FormattedMessage id="Deaths" />
           </p>
           <p
             style={{

@@ -2,8 +2,7 @@ import React, { Component } from "react"
 // import { Container, Col, Row } from "reactstrap"
 // import Image from "../image"
 import styled from "styled-components"
-import Map from "./Map"
-
+import { useIntl,FormattedMessage } from "gatsby-plugin-intl"
 const WrapperGrid = styled.div`
   padding: 2rem 0;
   display: grid;
@@ -26,7 +25,6 @@ const StatWrapper = styled.div`
     grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-column-gap: 7%;
-
   }
 `
 
@@ -43,6 +41,7 @@ const CardWrapper = styled.div`
 
 const MainStat = props => {
   const summary = props.summary
+  const intl = useIntl()
   if (summary !== null) {
     return (
       <WrapperGrid className="container">
@@ -56,8 +55,12 @@ const MainStat = props => {
               padding: 7,
               marginBottom: "1rem",
             }}
-          >
-            <h1 style={{ margin: 0, padding: "0 5px" }}> World </h1>
+          > { intl.locale === "ar"? (<h1 style={{ margin: 0, padding: "0 5px", textAlign:'end' }}>
+          <FormattedMessage id="World" />
+        </h1>): (<h1 style={{ margin: 0, padding: "0 5px" }}>
+          <FormattedMessage id="World" />
+        </h1>)}
+            
           </div>
           <div>
             {/* <Map style={{width:'100%'}} data={props.data}/> */}
@@ -74,7 +77,7 @@ const MainStat = props => {
           </div>
         </div>
         <StatWrapper>
-          <CardWrapper style={{ color: '#d60303'}}>
+          <CardWrapper style={{ color: "#d60303" }}>
             <img
               src={require("../../images/confirmed.png")}
               style={{ margin: "0 auto" }}
@@ -87,10 +90,16 @@ const MainStat = props => {
                 fontSize: "1.2rem",
               }}
             >
-              {" "}
-              Confirmed
+              <FormattedMessage id="Confirmed" />
+              
             </p>
-            <p style={{ margin: '1rem 0 0 ', fontSize: "1.4rem", textAlign: "center" }}>
+            <p
+              style={{
+                margin: "1rem 0 0 ",
+                fontSize: "1.4rem",
+                textAlign: "center",
+              }}
+            >
               {summary.TotalConfirmed}
               {/* <span style={{ float: "right", fontSize: 12 }}>
                 {" "}
@@ -98,7 +107,7 @@ const MainStat = props => {
               </span> */}
             </p>
           </CardWrapper>
-          <CardWrapper style={{ color: '#2b7900'}}>
+          <CardWrapper style={{ color: "#2b7900" }}>
             <img
               src={require("../../images/recovered.png")}
               style={{ margin: "0 auto" }}
@@ -112,9 +121,15 @@ const MainStat = props => {
               }}
             >
               {" "}
-              Recovered
+              <FormattedMessage id="Recovered" />
             </p>
-            <p style={{ margin: '1rem 0 0 ', fontSize: "1.4rem", textAlign:'center' }}>
+            <p
+              style={{
+                margin: "1rem 0 0 ",
+                fontSize: "1.4rem",
+                textAlign: "center",
+              }}
+            >
               {summary.TotalRecovered}
               {/* <span style={{ float: "right", fontSize: 12 }}>
                 {" "}
@@ -123,7 +138,7 @@ const MainStat = props => {
             </p>
           </CardWrapper>
 
-          <CardWrapper style={{ color: '#000'}}>
+          <CardWrapper style={{ color: "#000" }}>
             <img
               src={require("../../images/death.png")}
               style={{ margin: "0 auto" }}
@@ -137,9 +152,15 @@ const MainStat = props => {
               }}
             >
               {" "}
-              Deaths
+              <FormattedMessage id="Deaths" />
             </p>
-            <p style={{ margin: '1rem 0 0 ', fontSize: "1.4rem", textAlign:'center' }}>
+            <p
+              style={{
+                margin: "1rem 0 0 ",
+                fontSize: "1.4rem",
+                textAlign: "center",
+              }}
+            >
               {summary.TotalDeaths}{" "}
               {/* <span style={{ float: "right", fontSize: 12 }}>
                 {" "}
