@@ -56,6 +56,11 @@ const Summary = props => {
       setCountryConfirmed(getConfirmed)
     }
 
+   
+    countryConfirmed()
+  }, [])
+
+  useEffect(() => {
     const countryDeaths = async () => {
       const getDeaths = await axios
         .get(
@@ -84,6 +89,10 @@ const Summary = props => {
 
       setDeaths(tempDeath)
     }
+    countryDeaths()
+  }, [])
+
+  useEffect(()=>{
     const countryRecovered = async () => {
       const getRecovered = await axios
         .get(
@@ -114,10 +123,8 @@ const Summary = props => {
       setRecovered(tempData)
     }
 
-    countryDeaths()
     countryRecovered()
-    countryConfirmed()
-  }, [])
+  },[])
 
   return (
     <div>
@@ -138,9 +145,9 @@ const Summary = props => {
       <DailyGraphWrapper>
         {deaths && label && recovered && dataset !== null ? (
           <Pie
-          RecoveryRate={props.summary.RecoveryRate}
-          DeathRate={props.summary.DeathRate}
-          summary={props.summary}
+            RecoveryRate={props.summary.RecoveryRate}
+            DeathRate={props.summary.DeathRate}
+            summary={props.summary}
           />
         ) : (
           ""
