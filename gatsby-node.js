@@ -30,9 +30,10 @@ exports.createPages = ({ graphql, actions }) => {
       if (
         typeof node.country === "string" &&
         node.country !== "" &&
-        node.country !== null
+        typeof node.country !== "object" &&
+        node.country
       ) {
-        console.log(node)
+        console.log('this route was hit')
         const slug = slugify(node.country)
         createPage({
           path: `/country/${slug}`,
@@ -43,6 +44,8 @@ exports.createPages = ({ graphql, actions }) => {
             slug: node.country,
           },
         })
+      }else{
+        console.log('this is else so anything here nothing was created',node.country)
       }
     })
   })
