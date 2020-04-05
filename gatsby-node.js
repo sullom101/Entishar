@@ -6,12 +6,7 @@
 
 // You can delete this file if you're not using it
 const path = require(`path`)
-function slugify(text) {
-  return text
-    .toLowerCase()
-    .replace(/ /g, "-")
-    .replace(/[^\w-]+/g, "")
-}
+
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
@@ -44,11 +39,14 @@ exports.createPages = ({ graphql, actions }) => {
     }
   `).then(result => {
     result.data.allInternalCountries.edges.forEach(({ node }) => {
-      console.log(node)
-
+      function slugify(text) {
+        return text
+          .toLowerCase()
+          .replace(/ /g, "-")
+          .replace(/[^\w-]+/g, "")
+      }
       if (typeof node.country === "string" && node.country !== "") {
         const slug = slugify(node.country)
-
         createPage({
           path: `/country/${slug}`,
           component: path.resolve(`./src/templates/country.js`),
