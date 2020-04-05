@@ -5,6 +5,7 @@ import MainCountryStatWrapper from "../StyledComponents/MainCountryStatWrapper"
 import DailyGraphWrapper from "../StyledComponents/dailyGraphWrapper"
 import Visualiz from "./visualiz"
 import Pie from "./Pie"
+import { getSlug } from "../../utils/countryTransformer"
 
 const Summary = props => {
   const [countryConfirmed, setCountryConfirmed] = useState(null)
@@ -13,11 +14,12 @@ const Summary = props => {
   const [label, setLabel] = useState(null)
   const [dataset, setdataset] = useState(null)
 
+  const slug = getSlug(props.data.country)
   useEffect(() => {
     const countryConfirmed = async () => {
       const getConfirmed = await axios
         .get(
-          `https://api.covid19api.com/total/country/${props.slug}/status/confirmed`,
+          `https://api.covid19api.com/total/country/${slug}/status/confirmed`,
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -65,7 +67,7 @@ const Summary = props => {
     const countryDeaths = async () => {
       const getDeaths = await axios
         .get(
-          `https://api.covid19api.com/total/country/${props.slug}/status/deaths`,
+          `https://api.covid19api.com/total/country/${slug}/status/deaths`,
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -99,7 +101,7 @@ const Summary = props => {
     const countryRecovered = async () => {
       const getRecovered = await axios
         .get(
-          `https://api.covid19api.com/total/country/${props.slug}/status/recovered`,
+          `https://api.covid19api.com/total/country/${slug}/status/recovered`,
           {
             headers: {
               "Access-Control-Allow-Origin": "*",

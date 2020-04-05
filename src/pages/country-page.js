@@ -7,12 +7,10 @@ import Layout from "../components/Layout/layout"
 // import Image from "../components/image"
 import Spinner from "../components/Spinner/Spinner"
 import Summary from "../components/CountryInfo/Summary"
-import { getSlug } from "../utils/countryTransformer"
 
 const SecondPage = props => {
   const [summary, setSummary] = useState(null)
   const data = props.data
-  const slug = getSlug(data.country)
   // const summary = {
   //   TotalConfirmed: data.cases,
   //   TotalDeaths: data.deaths,
@@ -22,12 +20,10 @@ const SecondPage = props => {
   // }
 
   useEffect(() => {
-    
-
     const fetchSummary = async () => {
       const url = `https://corona.lmao.ninja/countries/${data.country}`
       const result = await axios
-        .get(url,{
+        .get(url, {
           withCredentials: false,
         })
         .then(res => {
@@ -35,8 +31,10 @@ const SecondPage = props => {
             TotalConfirmed: res.data.cases,
             TotalDeaths: res.data.deaths,
             TotalRecovered: res.data.recovered,
-            RecoveryRate : Math.round(res.data.recovered*100 / res.data.cases),
-            DeathRate : Math.round(res.data.deaths * 100 / res.data.cases),
+            RecoveryRate: Math.round(
+              (res.data.recovered * 100) / res.data.cases
+            ),
+            DeathRate: Math.round((res.data.deaths * 100) / res.data.cases),
           }
           console.log(obj)
           return obj
@@ -53,11 +51,11 @@ const SecondPage = props => {
     fetchSummary()
   }, [])
 
-  if (summary && slug !== null) {
+  if (summary !== null) {
     return (
       <Layout>
         <MainEach summary={summary} data={props.data} />
-        <Summary summary={summary} slug={slug} data={props.data} />
+        <Summary summary={summary} data={props.data} />
       </Layout>
     )
   } else {
