@@ -6387,7 +6387,7 @@ const withLink = country => {
 
 const getSlug = country=>{
   let find = countriesWithLinks.find(el => el.country2 === country)
-  if (find !== undefined) {
+  if (find !== undefined && find) {
     return find.slug
   } else {
     return country
