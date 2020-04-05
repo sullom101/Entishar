@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useState } from "react"
 import Image from "../image"
 import axios from "axios"
-import { countryCode } from "../../utils/countryTransformer"
+import { countryCode, countryTransformer } from "../../utils/countryTransformer"
 import ReactCountryFlag from "react-country-flag"
 import styled from "styled-components"
 
@@ -60,7 +60,25 @@ const MainEach = props => {
             gridTemplateColumns: "2fr 1fr",
           }}
         >
-          
+          { intl.locale === 'ar'? <>
+           <ReactCountryFlag
+            className="emojiFlag"
+            countryCode={props.data.countryInfo.iso2}
+            style={{
+              marginBottom: 0,
+              width: 50,
+              height: "auto",
+              justifySelf: "flex-start",
+              alignSelf: "center",
+              borderRadius: 4,
+              border: "none",
+              textAlign: 'end',
+            }}
+            svg
+          />
+          <h1 style={{ margin: 0, padding: "0 5px" }}> { countryTransformer(props.data.country)}</h1>
+         
+          </>:<>
           <h1 style={{ margin: 0, padding: "0 5px" }}> {props.data.country}</h1>
           <ReactCountryFlag
             className="emojiFlag"
@@ -76,6 +94,8 @@ const MainEach = props => {
             }}
             svg
           />
+          </>}
+          
         </div>
      
       </div>
