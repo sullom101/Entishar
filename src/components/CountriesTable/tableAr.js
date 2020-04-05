@@ -1,8 +1,10 @@
 import React from "react"
 import { Table } from "reactstrap"
 import styled from "styled-components"
-import { injectIntl, Link, FormattedMessage } from "gatsby-plugin-intl"
+import { Link, FormattedMessage } from "gatsby-plugin-intl"
 import { withLink } from "../../utils/countryTransformer"
+import { countryTransformer } from "../../utils/countryTransformer"
+
 const TableData = props => {
   const data = props.data
   if (data !== null) {
@@ -12,21 +14,22 @@ const TableData = props => {
           <Table bordered style={{ marginBottom: 0 }}>
             <thead>
               <tr>
-                <th>
-                  <FormattedMessage id="Country" />{" "}
-                </th>
                 <td>
                   {" "}
-                  <FormattedMessage id="Confirmed" />{" "}
+                  <FormattedMessage id="Recovered" />{" "}
                 </td>
                 <td>
                   {" "}
                   <FormattedMessage id="Deaths" />{" "}
                 </td>
+
                 <td>
                   {" "}
-                  <FormattedMessage id="Recovered" />{" "}
+                  <FormattedMessage id="Confirmed" />{" "}
                 </td>
+                <th style={{ textDecoration: "underline", textAlign: "end" }}>
+                  <FormattedMessage id="Country" />{" "}
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -36,27 +39,14 @@ const TableData = props => {
                     if (el.Country !== "") {
                       return (
                         <tr key={index}>
-                          <td>
-                            {withLink(el.Country) === true ? (
-                              <Link
-                                to={`/country/${el.Slug}`}
-                                stata={{ data: el }}
-                                data={el}
-                              >
-                                <p style={{textDecoration:'underline'}}> {el.Country} </p>
-                              </Link>
-                            ) : (
-                              <p> {el.Country} </p>
-                            )}
-                          </td>
-                          <td style={{ color: "red" }}>
+                          <td style={{ color: "green" }}>
                             {" "}
-                            {el.TotalConfirmed}{" "}
+                            {el.TotalRecovered}{" "}
                             <span style={{ float: "right", fontSize: 12 }}>
-                              {" "}
-                              &#8593; {el.NewConfirmed}{" "}
+                              &#8593; {el.NewRecovered}
                             </span>{" "}
                           </td>
+
                           <td style={{ color: "black" }}>
                             {" "}
                             {el.TotalDeaths}{" "}
@@ -65,12 +55,38 @@ const TableData = props => {
                               &#8593; {el.NewDeaths}
                             </span>{" "}
                           </td>
-                          <td style={{ color: "green" }}>
+
+                          <td style={{ color: "red" }}>
                             {" "}
-                            {el.TotalRecovered}{" "}
+                            {el.TotalConfirmed}{" "}
                             <span style={{ float: "right", fontSize: 12 }}>
-                              &#8593; {el.NewRecovered}
+                              {" "}
+                              &#8593; {el.NewConfirmed}{" "}
                             </span>{" "}
+                          </td>
+
+                          <td>
+                            {withLink(el.Country) === true ? (
+                              <Link
+                                to={`/country/${el.Slug}`}
+                                stata={{ data: el }}
+                                data={el}
+                              >
+                                <p
+                                  style={{
+                                    textDecoration: "underline",
+                                    textAlign: "end",
+                                  }}
+                                >
+                                  {countryTransformer(el.Country)}
+                                </p>
+                              </Link>
+                            ) : (
+                              <p style={{
+                                textDecoration: "underline",
+                                textAlign: "end",
+                              }}> {el.Country} </p>
+                            )}
                           </td>
                         </tr>
                       )
