@@ -1,11 +1,11 @@
 import React from "react"
-import styled from "styled-components"
-const SVG = styled.svg`
-  width: 30vw;
-  height: 20vh;
-  margin: 20px;
-  display: inline-block;
-`
+// import styled from "styled-components"
+// const SVG = styled.svg`
+//   width: 30vw;
+//   height: 20vh;
+//   margin: 20px;
+//   display: inline-block;
+// `
 
 const Spinner = () => {
   return (
@@ -19,7 +19,11 @@ const Spinner = () => {
         flexDirection:'column'
       }}
     >
-      <SVG
+      <svg 
+      style={{width: '30vw',
+        height: '20vh',
+        margin: 20,
+        display: 'inline-block',}}
         version="1.1"
         id="L1"
         xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +126,7 @@ const Spinner = () => {
             />
           </rect>
         </g>
-      </SVG>
+      </svg>
       <p>Loading Stats </p>
     </div>
   )
