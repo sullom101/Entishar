@@ -6,6 +6,12 @@
 
 // You can delete this file if you're not using it
 const path = require(`path`)
+function slugify(text) {
+  return text
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[^\w-]+/g, "")
+}
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
@@ -14,29 +20,45 @@ exports.createPages = ({ graphql, actions }) => {
       allInternalCountries {
         edges {
           node {
-            Country
-            Provinces
-            Slug
+            active
+            cases
+            casesPerOneMillion
+            country
+            countryInfo {
+              flag
+              iso2
+              iso3
+              long
+              lat
+            }
+            critical
+            deathsPerOneMillion
+            deaths
+            recovered
+            todayCases
+            todayDeaths
+            id
           }
         }
       }
     }
   `).then(result => {
     result.data.allInternalCountries.edges.forEach(({ node }) => {
-      console.log(typeof node.Slug)
-      if( typeof node.Slug === "string" && node.Slug !== ""){
+      console.log(node)
+
+      if (typeof node.country === "string" && node.country !== "") {
+        const slug = slugify(node.country)
+
         createPage({
-          path: `/country/${node.Slug}`,
+          path: `/country/${slug}`,
           component: path.resolve(`./src/templates/country.js`),
           context: {
             // This is the $slug variable
             // passed to blog-post.js
-            slug: node.Slug
+            slug: node.country,
           },
         })
-      } 
-      
+      }
     })
   })
 }
-

@@ -6,14 +6,14 @@ const PieChart = props => {
   const intl = useIntl()
 
   const chartData = canvas => {
-    const ctx = canvas.getContext("2d")
-    const gradient = ctx.createLinearGradient(90, 100, 0, 0)
-    const green = ctx.createLinearGradient(30,10, 500,300)
-    gradient.addColorStop(0, "#d60303")
-    gradient.addColorStop(1, "#6b0202")
-    green.addColorStop(0, "#242725")
-    green.addColorStop(0.8, "#13932b")
-    green.addColorStop(1, "#0bc32e")
+    // const ctx = canvas.getContext("2d")
+    // const gradient = ctx.createLinearGradient(90, 100, 0, 0)
+    // const green = ctx.createLinearGradient(30,10, 500,300)
+    // gradient.addColorStop(0, "#d60303")
+    // gradient.addColorStop(1, "#6b0202")
+    // green.addColorStop(0, "#242725")
+    // green.addColorStop(0.8, "#13932b")
+    // green.addColorStop(1, "#0bc32e")
 
 
     return {
@@ -21,8 +21,8 @@ const PieChart = props => {
       datasets: [
         {
           data: [props.RecoveryRate, props.DeathRate, 100-props.DeathRate - props.RecoveryRate],
-          backgroundColor: [green, '#000', gradient],
-          hoverBackgroundColor: [green, '#000', gradient],
+          backgroundColor: ['green', '#000', 'red'],
+          hoverBackgroundColor: ['green', '#000', 'red'],
         },
       ],
     }
