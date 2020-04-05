@@ -56,8 +56,11 @@ const Summary = props => {
       setCountryConfirmed(getConfirmed)
     }
 
+
+   
     countryConfirmed()
   }, [])
+
   useEffect(() => {
     const countryDeaths = async () => {
       const getDeaths = await axios
@@ -90,7 +93,9 @@ const Summary = props => {
 
     countryDeaths()
   }, [])
-  useEffect(() => {
+
+  useEffect(()=>{
+    
     const countryRecovered = async () => {
       const getRecovered = await axios
         .get(
@@ -122,7 +127,8 @@ const Summary = props => {
     }
 
     countryRecovered()
-  }, [])
+  },[])
+
   return (
     <div>
       <DailyGraphWrapper>
