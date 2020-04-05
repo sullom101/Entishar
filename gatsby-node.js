@@ -7,7 +7,6 @@
 // You can delete this file if you're not using it
 const path = require(`path`)
 
-
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
   return graphql(`
@@ -15,24 +14,7 @@ exports.createPages = ({ graphql, actions }) => {
       allInternalCountries {
         edges {
           node {
-            active
-            cases
-            casesPerOneMillion
             country
-            countryInfo {
-              flag
-              iso2
-              iso3
-              long
-              lat
-            }
-            critical
-            deathsPerOneMillion
-            deaths
-            recovered
-            todayCases
-            todayDeaths
-            id
           }
         }
       }
@@ -45,7 +27,12 @@ exports.createPages = ({ graphql, actions }) => {
           .replace(/ /g, "-")
           .replace(/[^\w-]+/g, "")
       }
-      if (typeof node.country === "string" && node.country !== "") {
+      if (
+        typeof node.country === "string" &&
+        node.country !== "" &&
+        node.country !== null
+      ) {
+        console.log(node)
         const slug = slugify(node.country)
         createPage({
           path: `/country/${slug}`,
