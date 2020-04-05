@@ -2,14 +2,18 @@ import React, { useState, useEffect } from "react"
 import Layout from "../components/Layout/layout"
 import SEO from "../components/SEO/seo"
 import Table from "../components/CountriesTable/table"
+import TableAr from "../components/CountriesTable/tableAr"
 import MainStat from "../components/MainStat/mainStat"
 import axios from "axios"
 import Spinner from "../components/Spinner/Spinner"
 import Frames from "../components/Frames/Frames"
 import {slugify} from '../utils/slugMaker'
+import {useIntl} from 'gatsby-plugin-intl'
 const IndexPage = () => {
   const [summary, setSummary] = useState(null)
   const [data, setData] = useState(null)
+  const intl = useIntl()
+
   useEffect(() => {
     async function fetchData() {
       const url = "https://corona.lmao.ninja/countries?sort=country"
@@ -100,7 +104,8 @@ const IndexPage = () => {
       <Layout>
         <SEO title="Home" />
         <MainStat summary={summary} data={data} />
-        <Table summary={summary} data={data} />
+        { intl.locale === 'ar'? <TableAr  summary={summary} data={data} />:<Table summary={summary} data={data} />}
+        
 
         <Frames />
 
