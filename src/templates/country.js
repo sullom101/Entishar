@@ -6,8 +6,6 @@ import CountryPage from "../pages/country-page"
 export default ({ data }) => {
   const countryData = data.allInternalCountries.edges[0].node
 
-  console.log("data is", countryData)
-
   return <CountryPage data={countryData} />
 }
 export const query = graphql`
