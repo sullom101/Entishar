@@ -17,7 +17,7 @@ const Summary = props => {
     const countryConfirmed = async () => {
       const getConfirmed = await axios
         .get(
-          `https://api.covid19api.com/total/country/${props.data.Slug}/status/confirmed`,
+          `https://api.covid19api.com/total/country/${props.slug}/status/confirmed`,
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -56,10 +56,13 @@ const Summary = props => {
       setCountryConfirmed(getConfirmed)
     }
 
+    countryConfirmed()
+  }, [])
+  useEffect(() => {
     const countryDeaths = async () => {
       const getDeaths = await axios
         .get(
-          `https://api.covid19api.com/total/country/${props.data.Slug}/status/deaths`,
+          `https://api.covid19api.com/total/country/${props.slug}/status/deaths`,
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -84,10 +87,14 @@ const Summary = props => {
 
       setDeaths(tempDeath)
     }
+
+    countryDeaths()
+  }, [])
+  useEffect(() => {
     const countryRecovered = async () => {
       const getRecovered = await axios
         .get(
-          `https://api.covid19api.com/total/country/${props.data.Slug}/status/recovered`,
+          `https://api.covid19api.com/total/country/${props.slug}/status/recovered`,
           {
             headers: {
               "Access-Control-Allow-Origin": "*",
@@ -114,11 +121,8 @@ const Summary = props => {
       setRecovered(tempData)
     }
 
-    countryDeaths()
     countryRecovered()
-    countryConfirmed()
   }, [])
-
   return (
     <div>
       <DailyGraphWrapper>
@@ -138,9 +142,9 @@ const Summary = props => {
       <DailyGraphWrapper>
         {deaths && label && recovered && dataset !== null ? (
           <Pie
-          RecoveryRate={props.summary.RecoveryRate}
-          DeathRate={props.summary.DeathRate}
-          summary={props.summary}
+            RecoveryRate={props.summary.RecoveryRate}
+            DeathRate={props.summary.DeathRate}
+            summary={props.summary}
           />
         ) : (
           ""
