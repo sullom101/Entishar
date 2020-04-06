@@ -5,7 +5,7 @@ import { countryCode, countryTransformer } from "../../utils/countryTransformer"
 import ReactCountryFlag from "react-country-flag"
 import styled from "styled-components"
 
-import { useIntl , FormattedMessage } from "gatsby-plugin-intl"
+import { useIntl, FormattedMessage } from "gatsby-plugin-intl"
 
 const StatWrapper = styled.div`
   padding: 7px;
@@ -48,58 +48,73 @@ const MainEach = props => {
   return (
     <WrapperGrid className="container">
       <div>
-        <div
-          style={{
-            backgroundColor: "#1f1d1d",
-            color: "#fff",
-            border: "none",
-            borderRadius: 10,
-            padding: 7,
-            marginBottom: "1rem",
-            display: "grid",
-            gridTemplateColumns: "2fr 1fr",
-          }}
-        >
-          { intl.locale === 'ar'? <>
-           <ReactCountryFlag
-            className="emojiFlag"
-            countryCode={props.data.countryInfo.iso2}
+        {intl.locale === "ar" ? (
+          <div
             style={{
-              marginBottom: 0,
-              width: 50,
-              height: "auto",
-              justifySelf: "flex-start",
-              alignSelf: "center",
-              borderRadius: 4,
+              backgroundColor: "#1f1d1d",
+              color: "#fff",
               border: "none",
-              textAlign: 'end',
+              borderRadius: 10,
+              padding: 7,
+              marginBottom: "1rem",
+              display: "grid",
+              gridTemplateColumns: "1fr 3fr",
             }}
-            svg
-          />
-          <h1 style={{ margin: 0, padding: "0 5px" }}> { countryTransformer(props.data.country)}</h1>
-         
-          </>:<>
-          <h1 style={{ margin: 0, padding: "0 5px" }}> {props.data.country}</h1>
-          <ReactCountryFlag
-            className="emojiFlag"
-            countryCode={props.data.countryInfo.iso2}
+          >
+            <ReactCountryFlag
+              className="emojiFlag"
+              countryCode={props.data.countryInfo.iso2}
+              style={{
+                marginBottom: 0,
+                width: 50,
+                height: "auto",
+                justifySelf: "flex-start",
+                alignSelf: "center",
+                borderRadius: 4,
+                border: "none",
+                textAlign: "end",
+              }}
+              svg
+            />
+            <h1 style={{ margin: 0, padding: "0 5px",textAlign:'end' }}>
+              {" "}
+              {countryTransformer(props.data.country)}
+            </h1>
+          </div>
+        ) : (
+          <div
             style={{
-              marginBottom: 0,
-              width: 50,
-              height: "auto",
-              justifySelf: "flex-end",
-              alignSelf: "center",
-              borderRadius: 4,
+              backgroundColor: "#1f1d1d",
+              color: "#fff",
               border: "none",
+              borderRadius: 10,
+              padding: 7,
+              marginBottom: "1rem",
+              display: "grid",
+              gridTemplateColumns: "3fr 1fr",
             }}
-            svg
-          />
-          </>}
-          
-        </div>
-     
+          >
+            <h1 style={{ margin: 0, padding: "0 5px" }}>
+              {" "}
+              {props.data.country}
+            </h1>
+            <ReactCountryFlag
+              className="emojiFlag"
+              countryCode={props.data.countryInfo.iso2}
+              style={{
+                marginBottom: 0,
+                width: 50,
+                height: "auto",
+                justifySelf: "flex-end",
+                alignSelf: "center",
+                borderRadius: 4,
+                border: "none",
+              }}
+              svg
+            />
+          </div>
+        )}
       </div>
-  
 
       <StatWrapper>
         <CardWrapper style={{ color: "#d60303" }}>
@@ -126,10 +141,6 @@ const MainEach = props => {
             }}
           >
             {props.summary.TotalConfirmed}
-            {/* <span style={{ float: "right", fontSize: 12 }}>
-                {" "}
-                &#8593; {summary.NewConfirmed}{" "}
-              </span> */}
           </p>
         </CardWrapper>
         <CardWrapper style={{ color: "#2b7900" }}>
@@ -156,10 +167,6 @@ const MainEach = props => {
             }}
           >
             {props.summary.TotalRecovered}
-            {/* <span style={{ float: "right", fontSize: 12 }}>
-                {" "}
-                &#8593; {summary.NewRecovered}{" "}
-              </span> */}
           </p>
         </CardWrapper>
 
@@ -176,7 +183,8 @@ const MainEach = props => {
               fontSize: "1.2rem",
             }}
           >
-            {" "}<FormattedMessage id="Deaths" />
+            {" "}
+            <FormattedMessage id="Deaths" />
           </p>
           <p
             style={{
@@ -186,10 +194,6 @@ const MainEach = props => {
             }}
           >
             {props.summary.TotalDeaths}{" "}
-            {/* <span style={{ float: "right", fontSize: 12 }}>
-                {" "}
-                &#8593; {summary.NewDeaths}{" "}
-              </span> */}
           </p>
         </CardWrapper>
       </StatWrapper>

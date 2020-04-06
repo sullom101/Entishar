@@ -1,8 +1,12 @@
 import React from "react"
 import { Table } from "reactstrap"
 import styled from "styled-components"
-import { injectIntl, Link, FormattedMessage } from "gatsby-plugin-intl"
+import { Link, FormattedMessage } from "gatsby-plugin-intl"
 import { withLink } from "../../utils/countryTransformer"
+
+const ATag = styled.a`
+  color: #007bff !important;
+`
 const TableData = props => {
   const data = props.data
   if (data !== null) {
@@ -106,6 +110,4 @@ const TableData = props => {
 }
 
 export default TableData
-const ATag = styled.a`
-  color: #007bff !important;
-`
+

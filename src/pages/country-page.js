@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from "react"
-import { Link } from "gatsby"
 import axios from "axios"
 import MainEach from "../components/CountryInfo/MainEach"
 import Layout from "../components/Layout/layout"
-// import SEO from "../components/SEO/seo"
-// import Image from "../components/image"
 import Spinner from "../components/Spinner/Spinner"
 import Summary from "../components/CountryInfo/Summary"
 
 const SecondPage = props => {
   const [summary, setSummary] = useState(null)
   const data = props.data
-  // const summary = {
-  //   TotalConfirmed: data.cases,
-  //   TotalDeaths: data.deaths,
-  //   TotalRecovered: data.recovered,
-  //   RecoveryRate : Math.round(data.recovered*100 / data.cases),
-  //   DeathRate : Math.round(data.deaths * 100 / data.cases),
-  // }
-
   useEffect(() => {
     const fetchSummary = async () => {
       const url = `https://corona.lmao.ninja/countries/${data.country}`
@@ -47,7 +36,7 @@ const SecondPage = props => {
       setSummary(result)
       return result
     }
-    // summaryData()
+
     fetchSummary()
   }, [])
 

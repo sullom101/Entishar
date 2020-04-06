@@ -14,8 +14,9 @@ import Footer from "../Footer/footer"
 import { Container } from "reactstrap"
 import "../layout.css"
 import "bootstrap/dist/css/bootstrap.min.css"
-import Wrapper from '../StyledComponents/wrapper'
-
+import Wrapper from "../StyledComponents/wrapper"
+import { Helmet } from "react-helmet"
+import favicon from "../../images/covid-logo.png"
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -32,8 +33,20 @@ const Layout = ({ children }) => {
     <ThemeContext.Consumer>
       {theme => (
         <div className={theme.dark ? "dark" : "light"}>
-          <Header siteTitle={data.site.siteMetadata.title} />
-          <Container fluid={true} >
+          <Helmet>
+            <link rel="icon" href={favicon} />
+            <title>{data.site.siteMetadata.title}</title>
+            <meta
+              name="description"
+              content="A contribution website from Alieniz team to the world where you can check updated stats for covid 19 outbreak."
+            />
+            <meta
+              name="keywords"
+              content="covid-19,covid stats, covid outbreak,Alieniz, corona stats"
+            />
+          </Helmet>
+          <Header />
+          <Container fluid={true}>
             <Wrapper className="container">{children}</Wrapper>
           </Container>
           <Footer />

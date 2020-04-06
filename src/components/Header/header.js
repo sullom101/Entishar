@@ -86,11 +86,9 @@ const Header = props => {
   const handleClickOutside = e => {
     if (wrapperRef.current.contains(e.target)) {
       // inside click
-      console.log("inside click")
       setShow(true)
     } else {
       // Outside Click
-      console.log("outside click")
       setShow(false)
     }
   }
