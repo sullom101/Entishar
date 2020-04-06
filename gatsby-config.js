@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `Covid-19`,
+    title: `Covid-19 stats`,
     description: `shows updated stats for covid 19.`,
     author: `@suleiman-mayow`,
   },
@@ -25,7 +25,7 @@ module.exports = {
         background_color: `#1f1d1d`,
         theme_color: `#1f1d1d`,
         display: `standalone`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/covid-logo.png`, // This path is relative to the root of the site.
         legacy: false,
         include_favicon: false,
         cache_busting_mode: `none`, // `query`(default), `name`, or `none`
