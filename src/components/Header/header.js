@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import { Container } from "reactstrap"
 import { useStaticQuery, graphql } from "gatsby"
-// import { Link } from "gatsby"
-import {slugify} from '../../utils/slugMaker'
+import { slugify } from "../../utils/slugMaker"
 import Head from "../StyledComponents/header"
 import Input from "../StyledComponents/Input"
 import Country from "./searchResults"
@@ -22,6 +21,7 @@ const Header = props => {
   const [show, setShow] = useState(false)
   const wrapperRef = useRef(null)
   const intl = useIntl()
+
   const languageName = {
     en: "English",
     ar: "العربية",
@@ -60,8 +60,8 @@ const Header = props => {
     const removeRedun = () => {
       let array = []
       searchData.map(el => {
-        console.log('this is object', el.node)
-        if (typeof el.node.country === "string" && el.node.country !=="" ) {
+        console.log("this is object", el.node)
+        if (typeof el.node.country === "string" && el.node.country !== "") {
           array.push({
             Country: el.node.country,
             Slug: slugify(el.node.country),
@@ -71,7 +71,7 @@ const Header = props => {
       })
       // console.log("this is array redunduncy", array)
       setData(array)
-      console.log('array of slugs and country',array)
+      console.log("array of slugs and country", array)
       return array
     }
     removeRedun()
@@ -324,37 +324,43 @@ const Header = props => {
       <Container
         style={{
           display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
+          gridTemplateColumns: "1fr",
           gridColumnGap: "5%",
           marginTop: 10,
           marginBottom: 10,
         }}
       >
-        <span></span>
         <div>
           <IntlContextConsumer>
             {({ languages, language: currentLocale }) =>
-              languages.map(language => (
-                <a key={language} onClick={() => changeLocale(language)}>
-                  <p
-                    style={{
-                      textAlign: language === "ar" ? "right" : "left",
-                      color: currentLocale === language ? `#950202` : `#1f1d1d`,
-                      margin: 10,
-                      textDecoration: currentLocale === language ? `underline`: 'none',
-                      cursor: `pointer`,
-                      display: `inline-block`,
-                    }}
-                  >
-                    {languageName[language]}
-                  </p>
-                </a>
-              ))
+              languages.map(language => {
+                if (language !== currentLocale) {
+                  return (
+                    <a key={language} onClick={() => changeLocale(language)}>
+                      <p
+                        style={{
+                          textAlign: language === "ar" ? "right" : "left",
+                          color:
+                            currentLocale === language ? `#950202` : `#1f1d1d`,
+                          margin: 10,
+                          textDecoration:
+                            currentLocale === language ? `underline` : "none",
+                          cursor: `pointer`,
+                          display: `inline-block`,
+                          backgroundColor: "#e5e5e5",
+                          padding: 10,
+                          borderRadius: 10,
+                        }}
+                      >
+                        {languageName[language]}
+                      </p>
+                    </a>
+                  )
+                }
+              })
             }
           </IntlContextConsumer>
         </div>
-
-        <span></span>
       </Container>
       <Container
         style={{
