@@ -7,8 +7,8 @@ import MainStat from "../components/MainStat/mainStat"
 import axios from "axios"
 import Spinner from "../components/Spinner/Spinner"
 import Frames from "../components/Frames/Frames"
-import {slugify} from '../utils/slugMaker'
-import {useIntl} from 'gatsby-plugin-intl'
+import { slugify } from '../utils/slugMaker'
+import { useIntl } from 'gatsby-plugin-intl'
 const IndexPage = () => {
   const [summary, setSummary] = useState(null)
   const [data, setData] = useState(null)
@@ -16,13 +16,13 @@ const IndexPage = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const url = "https://corona.lmao.ninja/countries?sort=country"
+      const url = "https://corona.lmao.ninja/v2/countries?sort=country"
       const result = await axios
         .get(url, {
           withCredentials: false,
         })
         .then(res => {
-          console.log("List of countries ",  res.data)
+          console.log("List of countries ", res.data)
           if (typeof res.data !== "object") {
             const parsedData = JSON.parse(res.data)
             console.log("parsed data", parsedData)
@@ -74,7 +74,7 @@ const IndexPage = () => {
     const fetchSummary = async () => {
       const url = "https://covid19.mathdro.id/api"
       const result = await axios
-        .get(url,{
+        .get(url, {
           withCredentials: false,
         })
         .then(res => {
@@ -104,8 +104,8 @@ const IndexPage = () => {
       <Layout>
         <SEO title="Home" />
         <MainStat summary={summary} data={data} />
-        { intl.locale === 'ar'? <TableAr  summary={summary} data={data} />:<Table summary={summary} data={data} />}
-        
+        {intl.locale === 'ar' ? <TableAr summary={summary} data={data} /> : <Table summary={summary} data={data} />}
+
 
         <Frames />
 
