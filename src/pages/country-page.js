@@ -10,7 +10,7 @@ const SecondPage = props => {
   const data = props.data
   useEffect(() => {
     const fetchSummary = async () => {
-      const url = `https://corona.lmao.ninja/countries/${data.country}`
+      const url = `https://corona.lmao.ninja/v2/countries/${data.country}`
       const result = await axios
         .get(url, {
           withCredentials: false,
